@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Http\Controllers\ControllerRelationUserType;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -40,6 +41,14 @@ class RegisterController extends Controller
     }
 
     /**
+     *
+     */
+    public function registerProvider()
+    {
+        return view('auth.registerProvider');
+    }
+
+    /**
      * Get a validator for an incoming registration request.
      *
      * @param  array  $data
@@ -62,10 +71,21 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $insertField =  User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => bcrypt($data['password']),
         ]);
+
+        if (isset($data['type_user']))
+        {
+            $typeUser = new ControllerRelationUserType();
+
+            $typeUser->create($insertField->id, $data['type_user']);
+
+        }
+
+        return $insertField;
+
     }
 }

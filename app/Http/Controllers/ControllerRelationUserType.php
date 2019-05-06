@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\relationTypeUsers;
+use Exception;
+use Illuminate\Http\Request;
+
 
 class ControllerRelationUserType extends Controller
 {
@@ -14,9 +16,7 @@ class ControllerRelationUserType extends Controller
      */
     public function index()
     {
-        $model = new relationTypeUsers();
-        $model->all();
-        return $model;
+
     }
 
     /**
@@ -24,9 +24,22 @@ class ControllerRelationUserType extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($id, $typeUser)
     {
-        //
+        try{
+
+            $insertField =  relationTypeUsers::create([
+                'id_user' => $id,
+                'id_type' => $typeUser,
+            ]);
+
+        }catch (Exception $e)
+        {
+            dd($e);
+        }
+
+        return $insertField;
+
     }
 
     /**

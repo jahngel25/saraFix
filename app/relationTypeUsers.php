@@ -4,9 +4,9 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
-class typeUsers extends Model
+class relationTypeUsers extends Model
 {
-    protected $table = 'type_users';
+    protected $table = 'relation_typeuser';
   	protected $fillable = ['id', 'id_user','id_type'];
   	protected $guarded = ['id'];
 }
