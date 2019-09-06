@@ -1,0 +1,40 @@
+#footer2 {
+    border-top: 5px solid #dee047;
+    background: hsla(0, 0%, 0%, 0.59);
+    padding-top: 30px;
+    margin-top: 60px;
+    clear: both;
+    color: #AAA;
+    display: block;
+}
+
+#footer2 .widgettitle {
+    margin: 0px;
+    padding: 0px 0px 15px;
+    border-bottom: medium none;
+}
+#footer2 h4 {
+    color: #FFF;
+}
+
+#footer2 ul {
+    list-style: outside none none;
+}
+
+#footer2 li {
+    padding: 7px 0px;
+    border-bottom: 1px dotted rgba(255, 255, 255, 0.2);
+    margin: 0px;
+}
+
+#footer2 li a {
+    color: #DDD;
+}
+
+#sub-floor {
+    margin-top: 2%
+}
+footer {
+    padding-bottom: 0px !important;
+    text-align: left;
+}

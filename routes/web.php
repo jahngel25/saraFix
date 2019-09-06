@@ -18,5 +18,31 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
-
+Route::post('/dataHome', 'PublicController@indexHomeWel')->name('dataHome');
 Route::get('/registreProvider', 'Auth\RegisterController@registerProvider')->name('registerProvider');
+Route::get('/servicios/{id}', 'PublicController@traerServicios')->name('servicios');
+Route::get('/ordenServicio/{id}', 'ControllerOrdenServicio@contratar')->name('ordenServicio');
+
+Route::group(['middleware' => 'Administrador','prefix' => 'Administrador'], function () {
+    Route::get('/home', 'AdministradorController@index')->name('homeAdmin');
+    Route::get('/Area', 'ControllerArea@index')->name('area');
+    Route::get('/formularioCreacion', 'ControllerArea@create')->name('frmCreacion');
+    Route::post('/crearArea', 'ControllerArea@store')->name('crearArea');
+    Route::get('/Servicio', 'ControllerNuevosServicios@index')->name('servicioList');
+    Route::get('/crearServicio', 'ControllerNuevosServicios@create')->name('frmCreacionServicio');
+    Route::post('/crearServicio', 'ControllerNuevosServicios@store')->name('crearServicio');
+});
+
+Route::group(['middleware' => 'Cliente','prefix' => 'Cliente'], function () {
+    Route::get('/home', 'ClienteController@index')->name('homeCliente');
+});
+
+Route::group(['middleware' => 'Todero','prefix' => 'Todero'], function () {
+    Route::get('/home', 'ToderoController@index')->name('homeTodero');
+});
+
+
+
+
+
+

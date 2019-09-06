@@ -1,0 +1,285 @@
+﻿/*body {
+}
+
+        body{font-family:'open sans';}
+        .navbar-login
+{
+    width: 305px;
+    padding: 10px;
+    padding-bottom: 0px;
+}*/
+
+/*.navbar-login-session
+{
+    padding: 10px;
+    padding-bottom: 0px;
+    padding-top: 0px;
+}*/
+
+.icon-size
+{
+    font-size: 87px;
+}
+        #mySidenav a {
+    position: fixed;
+    left: -13px;
+    transition: 0.3s;
+    padding: 15px;
+    width: 58px;
+    text-decoration: none;
+    font-size: 18px;
+    color: white;
+    border-radius: 0 5px 5px 0;
+}
+
+#mySidenav a:hover {
+    left: 0;
+}
+
+#facebookHeader {
+    top: 170px;
+    background-color: #3b5998;
+}
+
+#googleHeader {
+    top: 227px;
+    background-color: #dd4b39;
+}
+
+#tweHeader {
+    top: 284px;
+    background-color: #34ccfe;
+}
+
+#youtubeHeader {
+    top: 341px;
+    background-color: darkorange;
+}
+    
+
+        body{font-family:'open sans';}
+
+  
+
+#accordion-first .accordion-group {
+    margin-bottom: 10px;
+}
+
+#accordion-first .accordion-heading, #accordion-first .accordion-toggle:hover, #accordion-first .accordion-heading .accordion-toggle.active {
+    background: none repeat scroll 0% 0% transparent;
+}
+#accordion-first .accordion-heading {
+    border-bottom: 0px none;
+    font-size: 16px;
+}
+
+#accordion-first .accordion-heading .accordion-toggle {
+    display: block;
+    cursor: pointer;
+    padding: 5px 0px !important;
+    color: #222;
+    outline: medium none !important;
+    text-decoration: none;
+}
+
+#accordion-first .accordion-heading .accordion-toggle.active em{background-color: #F7C221;}
+
+#accordion-first .accordion-heading .accordion-toggle > em {
+    background-color: #222;
+    border-radius: 100px;
+    color: #FFF;
+    font-size: 14px;
+    height: 32px;
+    line-height: 32px;
+    margin-right: 10px;
+    text-align: center;
+    width: 32px;}
+
+
+ @media only screen  and (min-device-width: 320px) and (max-device-width: 480px)and (-webkit-min-device-pixel-ratio: 2) {
+   
+      /*.navbar-inverse .navbar-nav > li > a { color: #000;}
+      .navbar-inverse .navbar-nav .open .dropdown-menu > li > a { color: #dee047;}*/
+         #cart {display:none;   }
+         #cart2 {display:none;   }
+         #social-fb {color: #3B5998; }
+         #social-tw {color: #4099FF; }
+         #social-fb2 {color: #3B5998; }
+         #social-tw2 {color: #4099FF; }
+         #social-gp {color: #d34836; }
+         #social-gp2 {color: #d34836; }
+         #social-em {color: #f39c12; }
+         #social-em2 {color: #f39c12; }
+
+     #mySidenav { display: none;    }
+    .btn-xl    { font-size: 15px;}
+    /*.navbar-nav > li > a {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    line-height: 14px;
+    font-size:18px;*/
+}
+
+    #fontLogin  h1{
+    font-family: 'Raleway', sans-serif;
+    font-size: 64px;
+    line-height: 76px;
+    position: relative;
+    color:#dee047;
+    padding: 0px 0px 5px 0px;
+    font-weight: 600;
+          }
+    
+    #logo-img {background-color:white;}
+
+    #container_demo {
+        text-align: left;
+        margin-left: 0px;
+        font-family: 'Raleway', sans-serif;
+        width: 400px;
+    }
+
+    #register, #login {
+    position: absolute;
+    top: 0px;
+    width: 800px;
+    height: 1050px;
+    padding: 19px 15% 65px 11%;
+    margin: 10px -30px;
+    background: rgb(247, 247, 247);
+    border: 1px solid rgba(82, 0, 184, 0.51);
+    -webkit-box-shadow: 0pt 2px 5px rgba(105, 108, 109, 0.7), 0px 0px 8px 5px rgba(208, 223, 226, 0.4) inset;
+    -moz-box-shadow: 0pt 2px 5px rgba(105, 108, 109, 0.7),	0px 0px 8px 5px rgba(208, 223, 226, 0.4) inset;
+    box-shadow: 0pt 2px 5px rgba(105, 108, 109, 0.7), 0px 0px 8px 5px rgba(208, 223, 226, 0.4) inset;
+    -webkit-box-shadow: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+                   }
+
+        #login p label {
+            font-size:50px;
+        }
+         #login p a {
+            font-size:50px;
+        }
+
+         #register p label {
+            font-size:40px;
+        }
+
+         #register p a {
+            font-size:50px;
+        }
+
+        .keeplogin{	margin-top: 15px;}
+        .keeplogin input,.keeplogin label{	display: inline-block;	font-size: 22px; font-style: italic;}
+        .keeplogin input#loginkeeping{	margin-right: 0px;}
+        .keeplogin label{	width: 190%;}
+            .keeplogin span { font-size:38px;
+            }
+
+        #wrapper input:not([type="checkbox"]) {
+    width: 97%;
+    height: 76px;
+    margin-top: 9px;
+    padding: 25px 5px 10px 32px;
+    border: 1px solid rgb(178, 178, 178);
+    -webkit-appearance: textfield;
+    -webkit-box-sizing: content-box;
+    -moz-box-sizing: content-box;
+    box-sizing: content-box;
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0px 1px 4px 0px rgba(168, 168, 168, 0.6) inset;
+    -moz-box-shadow: 0px 1px 4px 0px rgba(168, 168, 168, 0.6) inset;
+    box-shadow: 0px 1px 4px 0px rgba(168, 168, 168, 0.6) inset;
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -o-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+    font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 54px;
+}
+
+        #wrapper p.button input {
+    width: 96%;
+    cursor: pointer;
+    background: #dee047;
+    padding: 11px 9px;
+    font-family: 'BebasNeueRegular','Arial Narrow',Arial,sans-serif;
+    color: #fff;
+    font-size: 65px;
+    border: 1px solid rgb(30, 51, 202);
+    margin-bottom: 10px;
+    text-shadow: 0 1px 1px rgba(0, 0, 0, 0.5);
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    -webkit-box-shadow: 0px 1px 6px 4px rgba(0, 0, 0, 0.07) inset, 0px 0px 0px 3px rgb(254, 254, 254), 0px 5px 3px 3px rgb(210, 210, 210);
+    -moz-box-shadow: 0px 1px 6px 4px rgba(0, 0, 0, 0.07) inset,
+ 0px 0px 0px 3px rgb(254, 254, 254),
+ 0px 5px 3px 3px rgb(210, 210, 210);
+    box-shadow: 0px 1px 6px 4px rgba(0, 0, 0, 0.07) inset, 0px 0px 0px 3px rgb(254, 254, 254), 0px 5px 3px 3px rgb(210, 210, 210);
+    -webkit-transition: all 0.2s linear;
+    -moz-transition: all 0.2s linear;
+    -o-transition: all 0.2s linear;
+    transition: all 0.2s linear;
+}
+       
+
+
+
+   
+
+ /* ----------- iPhone 5 and 5S ----------- */
+
+/* Portrait and Landscape */
+@media only screen   and (min-device-width: 320px)   and (max-device-width: 568px)  and (-webkit-min-device-pixel-ratio: 2) {
+
+    #mySidenav { display: none;    }
+}
+
+/* Portrait */
+@media only screen  and (min-device-width: 320px)  and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2)  and (orientation: portrait) {
+    #mySidenav { display: none;    }
+}
+
+/* Landscape */
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) {
+#mySidenav { display: none;    }
+}
+
+/* ----------- iPhone 6 ----------- */
+
+/* Portrait and Landscape */
+@media only screen  and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) { 
+    #mySidenav { display: none;    }
+}
+
+/* Portrait */
+@media only screen  and (min-device-width: 375px)  and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: portrait) { 
+    #mySidenav { display: none;    }
+}
+
+/* Landscape */
+@media only screen  and (min-device-width: 375px) and (max-device-width: 667px) and (-webkit-min-device-pixel-ratio: 2) and (orientation: landscape) { 
+    #mySidenav { display: none;    }
+}
+
+/* ----------- iPhone 6+ ----------- */
+
+/* Portrait and Landscape */
+@media only screen   and (min-device-width: 414px)  and (max-device-width: 736px)   and (-webkit-min-device-pixel-ratio: 3) { 
+    #mySidenav { display: none;    }
+}
+
+/* Portrait */
+@media only screen  and (min-device-width: 414px) and (max-device-width: 736px)  and (-webkit-min-device-pixel-ratio: 3) and (orientation: portrait) { 
+    #mySidenav { display: none;    }
+}
+
+/* Landscape */
+@media only screen  and (min-device-width: 414px) and (max-device-width: 736px)  and (-webkit-min-device-pixel-ratio: 3)  and (orientation: landscape) { 
+    #mySidenav { display: none;    }
+}

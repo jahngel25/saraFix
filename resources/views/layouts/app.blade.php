@@ -4,14 +4,19 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
-    <title>{{ config('app.name', 'Laravel') }}</title>
-
-    <!-- Styles -->
+    <title>{{ config('app.name', 'FixContract') }}</title>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <script src="{{ asset('js/app.js') }}"></script>
+    <script type="text/javascript"  src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <link rel="shortcut icon" href="{{asset('img/contractLogo.png')}}" />
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+
+    @if (Auth::guest())
+        <link href="{{ asset('css/generalStyles.css') }}" rel="stylesheet">
+    @endif
+    <link href="{{ asset('css/internalStyles.css') }}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -28,8 +33,8 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{ url('/') }}">
-                        {{ config('app.name', 'Laravel') }}
+                    <a class="navbar-brand" href="{{url('/')}}">
+                        <img src="{{asset('img/navLogo.png')}}" alt="" style="display: initial !important;">
                     </a>
                 </div>
 
@@ -43,20 +48,28 @@
                     <ul class="nav navbar-nav navbar-right">
                         <!-- Authentication Links -->
                         @if (Auth::guest())
-                            <li><a href="{{ route('login') }}">Login</a></li>
-                            <li><a href="{{ route('register') }}">Register</a></li>
+                            <li><a href="{{ url('/') }}">Inicio</a></li>
+                            <li><a href="{{ route('login') }}">Iniciar Sesion</a></li>
+                            <li><a href="{{ url('/register') }}" class="textClick">Registrame</a></li>
+                            <li><a href="{{ route('registerProvider') }}">Trabaja con nosotros</a></li>
                         @else
+                            @if(roleUser() == 1)
+                                @include('layouts.menuTodero')
+                            @elseif(roleUser() == 2)
+                                @include('layouts.menuCliente')
+                            @elseif(roleUser() == 3)
+                                @include('layouts.menuAdministrador')
+                            @endif
                             <li class="dropdown">
                                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
-
                                 <ul class="dropdown-menu" role="menu">
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
-                                            Logout
+                                            Cerrar Sesion
                                         </a>
 
                                         <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -73,8 +86,6 @@
 
         @yield('content')
     </div>
-
-    <!-- Scripts -->
-    <script src="{{ asset('js/app.js') }}"></script>
+    @yield('contentScript')
 </body>
 </html>

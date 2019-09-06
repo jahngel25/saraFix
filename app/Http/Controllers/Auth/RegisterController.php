@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\ControllerRelationUserType;
+use App\relationTypeUsers;
+use App\typeUsers;
 use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -45,7 +47,8 @@ class RegisterController extends Controller
      */
     public function registerProvider()
     {
-        return view('auth.registerProvider');
+        $userType = typeUsers::all()->where('id', '=', 1);
+        return view('auth.registerProvider', compact('userType'));
     }
 
     /**
@@ -80,9 +83,7 @@ class RegisterController extends Controller
         if (isset($data['type_user']))
         {
             $typeUser = new ControllerRelationUserType();
-
             $typeUser->create($insertField->id, $data['type_user']);
-
         }
 
         return $insertField;

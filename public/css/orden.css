@@ -1,0 +1,21 @@
+.modal-static { position: fixed;top: 50% !important; left: 50% !important; margin-top: -100px;  margin-left: -100px; overflow: visible !important; }
+.modal-static, .modal-static .modal-dialog, .modal-static .modal-content { width: 200px; height: 200px; }
+.modal-static .modal-dialog, .modal-static .modal-content {padding: 0 !important; margin: 0 !important; }
+#pnlCompraUser {margin-top:60px;}
+.clickable{ cursor: pointer;}
+.clickable .glyphicon{ background: rgba(0, 0, 0, 0.15); display: inline-block; padding: 6px 12px; border-radius: 4px}
+.panel-heading span{ margin-top: -23px;font-size: 15px;margin-right: -9px;}
+a.clickable { color: inherit; }
+a.clickable:hover { text-decoration:none; }
+@media screen and (max-device-width : 480px) {
+    #pnlCompraUser {margin-top:10px; }
+    .panel-title {text-align:left;        }
+    .col-xs-5 {width:100%;        }
+    .col-xs-7 { width:100%;  }
+    .col-xs-6 { margin-bottom:10px; width:100%; }
+    .col-xs-3 { width:100%;        }
+    .text-right {font-size:18px; text-align:left;  }  .col-xs-2 {width:100%;   }
+    .Incluye {display:none;}
+    .product-name {font-size:16px; }
+    h6 {font-size: 18px;margin-top:1px;margin-bottom:1px;}
+    .btn-xs{font-size:16px;margin-top:1px;margin-bottom:1px;text-align:left; }}
