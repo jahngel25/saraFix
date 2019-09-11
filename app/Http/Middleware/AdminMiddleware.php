@@ -18,6 +18,6 @@ class AdminMiddleware
         if (auth()->check() && roleUser() == 3)
             return $next($request);
 
-        return redirect('/');
+        return redirect('/404');
     }
 }

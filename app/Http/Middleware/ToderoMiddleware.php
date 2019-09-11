@@ -18,6 +18,6 @@ class ToderoMiddleware
         if (auth()->check() && roleUser() == 1)
             return $next($request);
 
-        return redirect('/');
+        return redirect('/404');
     }
 }

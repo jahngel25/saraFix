@@ -122,135 +122,143 @@
                         <li>Contamos con herramientas de última tecnología.</li>
                         <li>Contamos con pólizas de seguros para los servicios.</li>
                         <li> Nuestros profesionales cuentan con la experiencia para cada tipo de trabajo.</li>
-                        <li>Nuestros profesionales son verificados por Sarafix.</li>
-                        <li>Nuestros profesionales van debidamente identificados por Sarafix.</li>
+                        <li>Nuestros profesionales son verificados por Fix-Contract.</li>
+                        <li>Nuestros profesionales van debidamente identificados por Fix-Contract.</li>
                     </ul>
                 </div>
             </div>
         </div>
     </div>
-    <div class="row" >
+    <div class="row">
         <div class="col-lg-12 text-center">
-            <p style="color:#337ab7; margin-bottom:30px;">Llena los campos para procesar tu solicitud<p/>
+            <h5>Llena los campos para procesar tu solicitud</h5>
         </div>
     </div>
+    <br><br>
     <div class="borde_marco" >
-        <div class="col-sm-5">
-            <div class="panel panel-default">
-                <div class="panel-body form-horizontal payment-form">
-                    <div class="form-group">
-                        <label for="status"  class="col-sm-3 control-label">Email:</label>
-                        <div class="col-sm-9">
-                            <input type="email" style="border-color: #c0c0c0" placeholder="Email de contacto:" class="form-control" id="txtEmailUser"  />
+        <form action="{{route('crearOrdenServicio')}}" enctype="multipart/form-data" method="post">
+            {{ csrf_field() }}
+            <div class="col-sm-5">
+                <div class="panel panel-default" style="border-color: #c3c3c3;">
+                    <div class="panel-body form-horizontal payment-form">
+                        <div class="form-group">
+                            <label for="status"  class="col-sm-3 control-label">Email:</label>
+                            <div class="col-sm-9">
+                                <input type="email" style="border-color: #c0c0c0" placeholder="Email de contacto:" class="form-control" name="email" id="email"/>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="concept" class="col-sm-3 control-label">Nombre: </label>
-                        <div class="col-sm-9">
-                            <input type="text" style="border-color: #c0c0c0" placeholder="Nombre quien recibe:"  class="form-control" id="txtNombreUser"  />
+                        <div class="form-group">
+                            <label for="concept" class="col-sm-3 control-label">Nombre: </label>
+                            <div class="col-sm-9">
+                                <input type="text" style="border-color: #c0c0c0" placeholder="Nombre quien recibe:"  class="form-control" name="name" id="name"/>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="description" class="col-sm-3 control-label">Dirección:</label>
-                        <div class="col-sm-9">
-                            <input type="text" style="border-color: #c0c0c0" placeholder="Dirección indicaciones Ej.casa o apto: "  class="form-control" id="txtDirUser" />
+                        <div class="form-group">
+                            <label for="description" class="col-sm-3 control-label">Dirección:</label>
+                            <div class="col-sm-9">
+                                <input type="text" style="border-color: #c0c0c0" placeholder="Dirección indicaciones Ej.casa o apto: "  class="form-control" name="address" id="address"/>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="amount" class="col-sm-3 control-label">Teléfono:</label>
-                        <div class="col-sm-9">
-                            <input type="number" runat="server" style="border-color: #c0c0c0" placeholder="Teléfono de contacto:" onkeypress="ValidaSoloNumeros()" class="form-control" id="txtTelUser" />
+                        <div class="form-group">
+                            <label for="amount" class="col-sm-3 control-label">Teléfono:</label>
+                            <div class="col-sm-9">
+                                <input type="number" style="border-color: #c0c0c0" placeholder="Teléfono de contacto:" class="form-control" name="telefono" id="telefono"/>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <label for="date" class="col-sm-3 control-label">Instrucciones</label>
-                        <div class="col-sm-9">
-                            <input type="text" style="border-color: #c0c0c0" placeholder="Comentarios, detalles adicionales."  TextMode="MultiLine"  class="form-control" id="comment" />
+                        <div class="form-group">
+                            <label for="date" class="col-sm-3 control-label">Instrucciones</label>
+                            <div class="col-sm-9">
+                                <input type="text" style="border-color: #c0c0c0" placeholder="Comentarios, detalles adicionales." class="form-control" name="description"/>
+                            </div>
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <div class="col-lg-12 text-center">
-                            <label>Cuando quieres recibir tu servicio?</label>
-                            <div class='input-group date' id='datetimepicker6' style="margin-left: 3%">
-                                <input type='text' class="form-control" style="border-color: #c0c0c0;"/>
-                                <span class="input-group-addon">
+                        <div class="form-group">
+                            <div class="col-lg-12 text-center">
+                                <label>Cuando quieres recibir tu servicio?</label>
+                                <div class='input-group date' id='datetimepicker6' style="margin-left: 3%">
+                                    <input type='text' name="date" id="date" class="form-control" style="border-color: #c0c0c0;"/>
+                                    <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                                 </span>
+                                </div>
                             </div>
+                            <br />
                         </div>
-                        <br />
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="col-sm-7"  >
-            <div class="row">
-                <div class="col-xs-12">
-                    <div class="panel panel-info">
-                        <div class="panel-heading">
-                            <div class="panel-title">
-                                <div class="row">
-                                    <div class="col-xs-5">
-                                        <h5><i class="fa fa-shopping-cart" aria-hidden="true"></i> Shopping Cart</h5>
-                                    </div>
-                                    <div class="col-xs-7">
-                                        <a href="javascript:history.back()" class="btn btn-default btn-sm btn-block">
-                                            <i class="fa fa-reply" aria-hidden="true"></i> Necesitas mas servicios?
-                                        </a>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        @foreach($modelServicio as $value)
-                            <div class="row" style="padding: 3%" id="contenedor_{{$value->id}}">
-                                <div class="col-xs-2">
-                                    <input type="image" name="img_0" id="img_0" class="img-responsive" src="{{asset('img/'.$value->img)}}">
-                                </div><div class="col-xs-3">
-                                    <h4 class="product-name"><strong><span id="lblText_0">{{$value->name}}</span></strong></h4>
-                                    <h4 class="Incluye"><small><a id="lblRef_0" href="javascript:__doPostBack('lblRef_0','')">Que incluye este servicio</a></small></h4>
-                                </div>
-                                <div class="col-xs-6">
-                                    <div class="col-xs-6 text-right">
-                                        <h6><strong><span id="lblPrecio_0">${{$value->precio}} Pesos</span></strong></h6>
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <input type="hidden" name="sericios[]" value="{{$value->id}}">
-                                        <button onclick="eliminarContenedor('contenedor_{{$value->id}}')" class="btn btn-xs">Eliminar</button>
-                                    </div>
-                                </div>
-                            </div>
-                        @endforeach
-                        <div class="panel-body" style="padding: 6%">
-                            <div class="row">
-                                <div class="row text-center">
-                                    <div class="col-xs-6">
-                                        <div class="input-group">
-                                            <span class="input-group-addon"><i class="fa fa-gift" aria-hidden="true"></i></span>
-                                            <input type="text" style="border-color: #c0c0c0" class="form-control" placeholder="Tienes un codigo promocional?" id="TextBox2" />
+            <div class="col-sm-7"  >
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="panel panel-info" style="border-color: #c3c3c3;">
+                            <div class="panel-heading">
+                                <div class="panel-title">
+                                    <div class="row">
+                                        <div class="col-xs-5">
+                                            <h5><i class="fa fa-shopping-cart" aria-hidden="true"></i> Shopping Cart</h5>
+                                        </div>
+                                        <div class="col-xs-7">
+                                            <a href="javascript:history.back()" class="btn btn-default btn-sm btn-block">
+                                                <i class="fa fa-reply" aria-hidden="true"></i> Necesitas mas servicios?
+                                            </a>
                                         </div>
                                     </div>
-                                    <div class="col-xs-3">
-                                        <a href="#" class="btn ">+ Añadir Codigo</a>
+                                </div>
+                            </div>
+                            @if(isset($modelServicio))
+                                @foreach($modelServicio as $value)
+                                    <div class="row" style="padding: 3%" id="contenedor_{{$value->id}}">
+                                        <div class="col-xs-2">
+                                            <input type="image" name="img_0" id="img_0" class="img-responsive" src="{{asset('img/'.$value->img)}}">
+                                        </div><div class="col-xs-3">
+                                            <h4 class="product-name"><strong><span id="lblText_0">{{$value->name}}</span></strong></h4>
+                                            <h4 class="Incluye"><small><a id="lblRef_0" href="javascript:__doPostBack('lblRef_0','')">Que incluye este servicio</a></small></h4>
+                                        </div>
+                                        <div class="col-xs-6">
+                                            <div class="col-xs-6 text-right">
+                                                <h6><strong><span id="lblPrecio_0">${{$value->precio}} Pesos</span></strong></h6>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <input type="hidden" name="servicios[]" value="{{$value->id}}">
+                                                <button onclick="eliminarContenedor('contenedor_{{$value->id}}')" class="btn btn-xs">Eliminar</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @endforeach
+                            @endif
+                            <div class="panel-body" style="padding: 6%">
+                                <div class="row">
+                                    <div class="row text-center">
+                                        <div class="col-xs-6">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fa fa-gift" aria-hidden="true"></i></span>
+                                                <input type="text" style="border-color: #c0c0c0" class="form-control" placeholder="Tienes un codigo promocional?" id="TextBox2" />
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-3">
+                                            <a href="#" class="btn ">+ Añadir Codigo</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <div class="panel-footer">
-                            <div class="row text-center">
-                                <div class="col-xs-9">
-                                    <h4 class="text-right">Total ${{$total}}<strong><label Text="0" ID="lblTotalPagar" runat="server" /></strong></h4>
-                                </div>
-                                <div class="col-xs-3">
-                                    <input type="submit" id="btnRealizarPedidido" class="btn btn-danger" value="Solicitar Servicio">
+                            <div class="panel-footer">
+                                <div class="row text-center">
+                                    <div class="col-xs-9">
+                                        <input type="hidden" name="total" id="total" value="{{$total}}">
+                                        <h4 class="text-right">Total ${{$total}}<strong><label Text="0" ID="lblTotalPagar" runat="server" /></strong></h4>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <input type="submit" id="btnRealizarPedidido" class="btn btn-danger" value="Solicitar Servicio">
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>
+        </form>
     </div>
 </div>
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 <script src="{{asset('js/jquery.js')}}"></script>
 <script src="{{asset('js/bootstrap.js')}}"></script>
 <script src="{{asset('js/todaruVideo.js')}}"></script>
@@ -258,11 +266,13 @@
 <script src="{{asset('js/bootstrap-datetimepicker.js')}}"></script>
 <script type="application/javascript">
 
+
     $('#datetimepicker6').datetimepicker({
-        format: "dd MM yyyy - hh:ii",
+        dateFormat: "dd-MM-yyyy hh:ii",
         autoclose: true,
         minuteStep: 10,
     });
+
 
     function eliminarContenedor(id)
     {

@@ -18,6 +18,6 @@ class ClienteMiddleware
         if (auth()->check() && roleUser() == 2)
             return $next($request);
 
-        return redirect('/');
+        return redirect('/404');
     }
 }

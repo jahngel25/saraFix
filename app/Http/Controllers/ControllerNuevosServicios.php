@@ -5,13 +5,17 @@ namespace App\Http\Controllers;
 use App\area;
 use App\servicios;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 class ControllerNuevosServicios extends Controller
 {
     public function index()
     {
-        $modelServicio = servicios::query()->get();
+        $modelServicio = servicios::query()->select((DB::raw('servicio.id, servicio.name, servicio.description, servicio.img, servicio.precio, area.name as areaName')))
+                                    ->join('area', 'area.id', '=', 'servicio.id_area')
+                                    ->get();
+
         return view('Servicios.list', compact('modelServicio'));
     }
 

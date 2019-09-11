@@ -13,7 +13,7 @@
                     <th>descripcion</th>
                     <th>img</th>
                     <th>Precio</th>
-                    <th>Area</th>
+                    <th>Servicio</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -23,7 +23,7 @@
                         <td>{{$value->description}}</td>
                         <td style="text-align: center"><input type="image"  class="img-responsive" width="150" height="100" src="{{asset('uploads/'.$value->img)}}"></td>
                         <td>{{$value->precio}}</td>
-                        <td>{{$value->id_area}}</td>
+                        <td>{{$value->areaName}}</td>
                     </tr>
                 @endforeach
                 </tbody>

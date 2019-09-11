@@ -6,12 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>{{ config('app.name', 'FixContract') }}</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css?family=Kumar+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
+    <link rel="shortcut icon" href="{{asset('img/contractLogo.png')}}" />
+    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <script src="{{ asset('js/app.js') }}"></script>
     <script type="text/javascript"  src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-    <link rel="shortcut icon" href="{{asset('img/contractLogo.png')}}" />
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 
     @if (Auth::guest())
         <link href="{{ asset('css/generalStyles.css') }}" rel="stylesheet">
@@ -33,9 +36,15 @@
                     </button>
 
                     <!-- Branding Image -->
-                    <a class="navbar-brand" href="{{url('/')}}">
-                        <img src="{{asset('img/navLogo.png')}}" alt="" style="display: initial !important;">
-                    </a>
+                    @if (Auth::guest())
+                        <a class="navbar-brand" href="{{url('/')}}">
+                            <img src="{{asset('img/navLogo.png')}}" alt="" style="display: initial !important;">
+                        </a>
+                    @else
+                        <a class="navbar-brand" href="#">
+                            <img src="{{asset('img/navLogo.png')}}" alt="" style="display: initial !important;">
+                        </a>
+                    @endif
                 </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
@@ -65,6 +74,7 @@
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu" role="menu">
+                                    <li><a href="#">Editar Perfil</a></li>
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -76,6 +86,8 @@
                                             {{ csrf_field() }}
                                         </form>
                                     </li>
+                                    <li>
+                                    </li>
                                 </ul>
                             </li>
                         @endif
@@ -86,6 +98,7 @@
 
         @yield('content')
     </div>
+    <script type="text/javascript" src="https://checkout.epayco.co/checkout.js"></script>
     @yield('contentScript')
 </body>
 </html>

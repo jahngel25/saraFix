@@ -66,7 +66,7 @@
                 <h3 id="servicios" class="section-subheading text-muted">"Precios económicos y sin sorpresas”</h3>
             </div>
         </div>
-        <div  class="row" id="contenedorAreas">
+        <div  class="row" id="contenedorAreas" style="margin-right: -15px !important;margin-left: -15px !important;">
 
         </div>
         <div class="row">
@@ -187,7 +187,7 @@
                         '<img src="img/'+ value['img'] +'" class="img-thumbnail" alt="Servicios de plomeria" class="image">\n' +
                         '<div class="overlay">\n' +
                         '<div class="text">\n' +
-                        '<h2>'+ value['name'] +'</h2>\n' +
+                        '<h4>'+ value['name'] +'</h4>\n' +
                         '<br>\n' +
                         '<h1>'+ result +'</h1>\n' +
                         '</div>\n' +

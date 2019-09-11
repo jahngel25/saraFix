@@ -112,7 +112,7 @@
                 <p id="servicios" style="font-size: 16px; font-family:Droid Serif, Helvetica Neue, Helvetica, Arial, sans-serif; text-transform: none; font-style: italic;" >{{$dataArea->texto}}</p>
             </div><br />
         </div>
-        <div class="row text-center">
+        <div class="row text-center" style="margin-right: -15px !important;margin-left: -15px !important;">
             @foreach($dataServicio as $value)
                 <div class="col-md-3 col-sm-6 hero-feature">
                     <div class="thumbnail">
@@ -150,12 +150,62 @@
                             </button>
                         </div>
                         <div class="modal-body">
-
-                            <div style="text-align: center; color: #31708f;">"Nota! En pocos minutos un asesor del área técnica se comunicara contigo"</div>
+                            <form action="" method="POST" enctype="multipart/form-data"></form>
+                            {{ csrf_field() }}
+                            <div class="row">
+                                <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                                    <label for="name" class="col-md-2 control-label" style="margin-top: 1%;">Nombre</label>
+                                    <div class="col-md-10">
+                                        <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+                                        @if ($errors->has('name'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('name') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="form-group{{ $errors->has('emial') ? ' has-error' : '' }}">
+                                    <label for="emial" class="col-md-2 control-label" style="margin-top: 1%;">E-mail</label>
+                                    <div class="col-md-10">
+                                        <input id="emial" type="text" class="form-control" name="emial" value="{{ old('emial') }}" required autofocus>
+                                        @if ($errors->has('emial'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('emial') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="form-group{{ $errors->has('telefono') ? ' has-error' : '' }}">
+                                    <label for="telefono" class="col-md-2 control-label" style="margin-top: 1%;">Telefono</label>
+                                    <div class="col-md-10">
+                                        <input id="telefono" type="text" class="form-control" name="telefono" value="{{ old('telefono') }}" required autofocus>
+                                        @if ($errors->has('telefono'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('telefono') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="form-group{{ $errors->has('mensaje') ? ' has-error' : '' }}">
+                                    <label for="mensaje" class="col-md-2 control-label" style="margin-top: 1%;">Comentarios</label>
+                                    <div class="col-md-10">
+                                        <textarea id="mensaje" class="form-control" name="mensaje" value="{{ old('mensaje') }}" required autofocus></textarea>
+                                        @if ($errors->has('mensaje'))
+                                            <span class="help-block">
+                                                <strong>{{ $errors->first('mensaje') }}</strong>
+                                            </span>
+                                        @endif
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                            <div  style="text-align: center; color: #31708f;">
+                                "Nota! En pocos minutos un asesor del área técnica se comunicara contigo"
+                            </div>
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <button type="button" class="btn btn-primary">SOLICITAR</button>
+                            <input type="submit" class="btn btn-primary" value="SOLICITAR">
                         </div>
                     </div>
                 </div>
