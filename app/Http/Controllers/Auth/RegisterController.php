@@ -74,6 +74,12 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
+        if ($data['type_user'] == 1){
+            $status = 2;
+        }else{
+            $status = 1;
+        }
+
         $insertField =  User::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -83,7 +89,7 @@ class RegisterController extends Controller
         if (isset($data['type_user']))
         {
             $typeUser = new ControllerRelationUserType();
-            $typeUser->create($insertField->id, $data['type_user']);
+            $typeUser->create($insertField->id, $data['type_user'], $status);
         }
 
         return $insertField;

@@ -3,6 +3,8 @@
 @section('content')
 <div class="container" style="margin-top: 3%">
         @foreach($dataOrdenServicio as $value)
+        <form action="{{route('aceptarServicio')}}" method="post" enctype="multipart/form-data">
+            {{ csrf_field() }}
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
                     <div class="panel panel-default" style="border-color: #c3c3c3; background-color: rgba(233,233,233,0.95); ">
@@ -23,14 +25,16 @@
                                     <i class="fa fa-eye fa-2x" aria-hidden="true"></i>
                                 </div>
                                 <div class="col-md-3 col-xs-4" align="right" style="padding-top: 2%;">
-                                    <input type="hidden" name="pago_{{$value->id}}" value="{{$value->id}}">
-                                    <input type="button" class="btn-success" value="Aceptar">
+                                    <input type="hidden" name="id_orden" value="{{$value->id}}">
+                                    <input type="hidden" name="id_todero" value="{{ Auth::user()->id }}">
+                                    <input type="submit" class="btn-success" value="Aceptar">
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
+        </form>
         @endforeach
     </div>
 @endsection

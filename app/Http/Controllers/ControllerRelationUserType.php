@@ -24,13 +24,14 @@ class ControllerRelationUserType extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create($id, $typeUser)
+    public function create($id, $typeUser, $status)
     {
         try{
 
             $insertField =  relationTypeUsers::create([
                 'id_user' => $id,
                 'id_type' => $typeUser,
+                'status' => $status
             ]);
 
         }catch (Exception $e)

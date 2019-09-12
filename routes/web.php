@@ -43,7 +43,9 @@ Route::group(['middleware' => 'Cliente','prefix' => 'Cliente'], function () {
 });
 
 Route::group(['middleware' => 'Todero','prefix' => 'Todero'], function () {
+
     Route::get('/home', 'ToderoController@index')->name('homeTodero');
+    Route::post('/aceptarServicio','ControllerRelationOrdenUser@create')->name('aceptarServicio');
 });
 
 
