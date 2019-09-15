@@ -9,18 +9,22 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     <link href="https://fonts.googleapis.com/css?family=Kumar+One" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css" rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css">
-    <link rel="shortcut icon" href="{{asset('img/contractLogo.png')}}" />
-    <link href="{{ asset('css/app.css') }}" rel="stylesheet">
-    <script src="{{ asset('js/app.js') }}"></script>
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
-    <script type="text/javascript"  src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.css" rel="stylesheet">
+    <link rel="shortcut icon" href="{{asset('img/contractLogo.png')}}" />
+    <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
+    <link rel="stylesheet" href="{{asset('css/app.css')}}">
+    <link rel="stylesheet" href="{{asset('css/bootstrap-datetimepicker.css')}}">
+    <link rel="stylesheet" href="{{asset('css/materialize.css')}}">
+    <link rel="stylesheet" href="{{asset('css/bootstrap-datetimepicker.css')}}">
     @if (Auth::guest())
         <link href="{{ asset('css/generalStyles.css') }}" rel="stylesheet">
+    @else
+        <link href="{{ asset('css/internalStyles.css') }}" rel="stylesheet">
     @endif
-    <link href="{{ asset('css/internalStyles.css') }}" rel="stylesheet">
+    @yield('contentStyles')
 </head>
 <body>
     <div id="app">
@@ -99,6 +103,12 @@
 
         @yield('content')
     </div>
+    <script type="text/javascript" src="{{asset('js/materialize.js') }}"></script>
+    <script type="text/javascript" src="{{asset('js/app.js') }}"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    <script type="text/javascript" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script type="text/javascript" src="{{asset('js/bootstrap-datetimepicker.js')}}"></script>
     <script type="text/javascript" src="https://checkout.epayco.co/checkout.js"></script>
     @yield('contentScript')
 </body>

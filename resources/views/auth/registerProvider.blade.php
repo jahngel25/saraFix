@@ -1,8 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container formRegister">
-    <div class="row">
+    <div class="container formRegister">
         <div class="col-md-8 col-md-offset-4">
             <div class="panel panel-default classTransparent">
                 <div class="panel-heading classTransparent classTitlePanel">Registrese como Todero</div>
@@ -92,5 +91,4 @@
             </div>
         </div>
     </div>
-</div>
 @endsection

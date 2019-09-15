@@ -46,6 +46,10 @@ Route::group(['middleware' => 'Todero','prefix' => 'Todero'], function () {
 
     Route::get('/home', 'ToderoController@index')->name('homeTodero');
     Route::post('/aceptarServicio','ControllerRelationOrdenUser@create')->name('aceptarServicio');
+    Route::post('/informacionAdicional','ToderoController@createInformacionAdicional')->name('informacionAdicional');
+    Route::get('/traerDepartamento/{id}','ToderoController@traerDepartamento')->name('traerDepartamento');
+    Route::get('/traerCiudad/{id}','ToderoController@traerCiudad')->name('traerCiudad');
+
 });
 
 

@@ -1,6 +1,22 @@
 .stylesInput{
     width: 100% !important;
-    height: 36px !important;;
-    padding: 6px 12px !important;;
-    border-radius: 4px !important;;
+    height: 36px !important;
+    margin-bottom: 4%;
+}
+body{
+    background-image: url("/img/fondo1.jpg");
+    overflow-x:hidden;
+    overflow-y:visible;
+    font-weight: bolder;
+    color: #000000 !important;
+}
+
+.styleImgInput{
+     height: 36px;
+     background: #fff;
+     color: #000;
+ }
+
+label {
+    color: #000000 !important;
 }

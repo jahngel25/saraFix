@@ -177,8 +177,8 @@
                                 <div class='input-group date' id='datetimepicker6' style="margin-left: 3%">
                                     <input type='text' name="date" id="date" class="form-control" style="border-color: #c0c0c0;"/>
                                     <span class="input-group-addon">
-                                <span class="glyphicon glyphicon-calendar"></span>
-                                </span>
+                                        <span class="glyphicon glyphicon-calendar"></span>
+                                    </span>
                                 </div>
                             </div>
                             <br />

@@ -8,7 +8,7 @@
                 <div class="panel-heading classTransparent classTitlePanel">Inicio de session</div>
 
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('login') }}">
+                    <form class="form-horizontal" method="POST" action="{{ route('login') }}" autocomplete="off">
                         {{ csrf_field() }}
 
                         <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
@@ -55,7 +55,7 @@
                                     Login
                                 </button>
 
-                                <a class="btn btn-link" href="{{ route('password.request') }}" style="color: #000">
+                                <a class="btn btn-link" href="{{ route('password.request') }}" style="color: #000; text-decoration: none;">
                                     Olvido su contraseña?
                                 </a>
                             </div>
