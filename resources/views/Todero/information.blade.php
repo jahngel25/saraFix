@@ -68,20 +68,20 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="form-group{{ $errors->has('tipo_identificacion') ? ' has-error' : '' }}">
-                                    <label for="tipo_identificacion" class="col-md-12 control-label">Tipo de Identificación</label>
+                                <div class="form-group{{ $errors->has('id_tipo_documento') ? ' has-error' : '' }}">
+                                    <label for="id_tipo_documento" class="col-md-12 control-label">Tipo de Identificación</label>
 
                                     <div class="col-md-12">
-                                        <select name="tipo_identificacion" id="tipo_identificacion" class="stylesInput">
+                                        <select name="id_tipo_documento" id="id_tipo_documento" class="stylesInput">
                                             <option value="">Seleccione</option>
                                             @foreach($dataTipoDocumento as $value)
                                                 <option value="{{$value->id}}">{{$value->description}}</option>
                                             @endforeach
                                         </select>
-                                        @if ($errors->has('tipo_identificacion'))
+                                        @if ($errors->has('id_tipo_documento'))
                                             <span class="help-block">
-                                            <strong>{{ $errors->first('tipo_identificacion') }}</strong>
-                                        </span>
+                                            <strong>{{ $errors->first('id_tipo_documento') }}</strong>
+                                        </span>a
                                         @endif
                                     </div>
                                 </div>
@@ -89,7 +89,7 @@
                                     <label for="identificacion" class="col-md-12 control-label">Numero de identificación</label>
 
                                     <div class="col-md-12">
-                                        <input id="identificacion" type="number" class="stylesInput" name="name" value="{{ old('name') }}" required autofocus>
+                                        <input id="identificacion" type="number" class="stylesInput" name="identificacion" value="{{ old('identificacion') }}" required autofocus>
                                         @if ($errors->has('identificacion'))
                                             <span class="help-block">
                                             <strong>{{ $errors->first('identificacion') }}</strong>
@@ -97,20 +97,36 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="form-group{{ $errors->has('tipo_identificacion') ? ' has-error' : '' }}">
-                                    <label for="tipo_identificacion" class="col-md-12 control-label">Fecha de Nacimientos</label>
+                                <div class="form-group{{ $errors->has('fecha_nacimiento') ? ' has-error' : '' }}">
+                                    <label for="fecha_nacimiento" class="col-md-12 control-label">Fecha de Nacimientos</label>
                                     <div class="form-group">
                                         <div class="col-lg-12 text-center">
                                             <div class='input-group date' id='datetimepickerInfo'>
-                                                <input type='text' name="date" id="date" class="form-control" style="border-color: #c0c0c0;"/>
+                                                <input type='text' name="fecha_nacimiento" id="fecha_nacimiento" class="form-control" style="border-color: #c0c0c0;"/>
                                                 <span class="input-group-addon">
                                                     <span class="glyphicon glyphicon-calendar"></span>
                                                 </span>
                                             </div>
+                                            @if ($errors->has('fecha_nacimiento'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('fecha_nacimiento') }}</strong>
+                                                </span>
+                                            @endif
                                         </div>
                                         <br />
                                     </div>
+                                </div>
+                                <div class="form-group{{ $errors->has('direccion') ? ' has-error' : '' }}" >
+                                    <label for="direccion" class="col-md-12 control-label">Dirección</label>
 
+                                    <div class="col-md-12">
+                                        <input id="direccion" type="text" class="stylesInput" name="direccion" value="{{ old('direccion') }}" required autofocus>
+                                        @if ($errors->has('direccion'))
+                                            <span class="help-block">
+                                            <strong>{{ $errors->first('direccion') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
                                 </div>
                                 <div class="form-group{{ $errors->has('pais') ? ' has-error' : '' }}">
                                     <label for="pais" class="col-md-12 control-label">Pais de recidencia</label>
@@ -129,7 +145,7 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="form-group{{ $errors->has('ciudad') ? ' has-error' : '' }}">
+                                <div class="form-group{{ $errors->has('departamento') ? ' has-error' : '' }}">
                                     <label for="departamento" class="col-md-12 control-label">Departamento de Recidencia</label>
 
                                     <div class="col-md-12">
@@ -143,16 +159,16 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="form-group{{ $errors->has('ciudad') ? ' has-error' : '' }}">
-                                    <label for="ciudad" class="col-md-12 control-label">Ciudad de Recidencia</label>
+                                <div class="form-group{{ $errors->has('id_ciudad') ? ' has-error' : '' }}">
+                                    <label for="id_ciudad" class="col-md-12 control-label">Ciudad de Recidencia</label>
 
                                     <div class="col-md-12">
-                                        <select name="ciudad" id="ciudad" class="stylesInput">
+                                        <select name="id_ciudad" id="id_ciudad" class="stylesInput">
                                             <option value="">Seleccione</option>
                                         </select>
-                                        @if ($errors->has('ciudad'))
+                                        @if ($errors->has('id_ciudad'))
                                             <span class="help-block">
-                                            <strong>{{ $errors->first('ciudad') }}</strong>
+                                            <strong>{{ $errors->first('id_ciudad') }}</strong>
                                         </span>
                                         @endif
                                     </div>
@@ -171,14 +187,14 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                                    <label for="name" class="col-md-12 control-label">Experiencia en años</label>
+                                <div class="form-group{{ $errors->has('experiencia') ? ' has-error' : '' }}">
+                                    <label for="experiencia" class="col-md-12 control-label">Experiencia en años</label>
 
                                     <div class="col-md-12">
-                                        <input id="name" type="number" class="stylesInput" name="name" value="{{ old('name') }}" required autofocus>
-                                        @if ($errors->has('name'))
+                                        <input id="experiencia" type="number" class="stylesInput" name="experiencia" value="{{ old('experiencia') }}" required autofocus>
+                                        @if ($errors->has('experiencia'))
                                             <span class="help-block">
-                                            <strong>{{ $errors->first('name') }}</strong>
+                                            <strong>{{ $errors->first('experiencia') }}</strong>
                                         </span>
                                         @endif
                                     </div>
@@ -214,7 +230,7 @@
                                     </div>
                                 </div>
                                 <div class="form-group{{ $errors->has('certificado_doc') ? ' has-error' : '' }}">
-                                    <label for="certificado_doc" class="col-md-12 control-label">Certificado EPS</label>
+                                    <label for="certificado_doc" class="col-md-12 control-label">Certificaciones</label>
                                     <div class="col-md-12" style="margin-bottom: 4% !important;">
                                         <div class="input-group">
                                         <span class="input-group-btn">
@@ -227,6 +243,24 @@
                                         @if ($errors->has('certificado_doc'))
                                             <span class="help-block">
                                             <strong>{{ $errors->first('certificado_doc') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="form-group{{ $errors->has('eps_doc') ? ' has-error' : '' }}">
+                                    <label for="eps_doc" class="col-md-12 control-label">Certificado EPS</label>
+                                    <div class="col-md-12" style="margin-bottom: 4% !important;">
+                                        <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <span class="btn btn-default btn-file">
+                                                <i class="fa fa-hand-o-up fa-stack-2x"></i> <input type="file" id="eps_doc" name="eps_doc" class="stylesInput">
+                                            </span>
+                                        </span>
+                                            <input type="text" class="form-control styleImgInput" value="{{ old('eps_doc') }}" readonly>
+                                        </div>
+                                        @if ($errors->has('eps_doc'))
+                                            <span class="help-block">
+                                            <strong>{{ $errors->first('eps_doc') }}</strong>
                                         </span>
                                         @endif
                                     </div>
@@ -270,9 +304,8 @@
     <script>
 
         $('#datetimepickerInfo').datetimepicker({
-            dateFormat: "dd-MM-yyyy hh:ii",
+            format: "yyyy-mm-dd",
             autoclose: true,
-            minuteStep: 10,
             pickTime: false
         });
 
@@ -346,11 +379,11 @@
                     'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                 },
                 success:function(data){
-                    $('#ciudad').html('');
-                    $('#ciudad').append(' <option value="">Seleccione</option>');
+                    $('#id_ciudad').html('');
+                    $('#id_ciudad').append(' <option value="">Seleccione</option>');
                     $.each(data, function( index, value )
                     {
-                        $('#ciudad').append(' <option value="'+value['id']+'">'+value['description']+'</option>');
+                        $('#id_ciudad').append(' <option value="'+value['id']+'">'+value['description']+'</option>');
                     });
                 }
             });

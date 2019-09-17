@@ -10,7 +10,7 @@
                     <div class="panel panel-default" style="border-color: #c3c3c3; background-color: rgba(233,233,233,0.95); ">
                         <div class="row" style="padding: 3%">
                             <div class="col-md-1 col-xs-1">
-                                <i class="fa fa-check-square-o fa-4x" aria-hidden="true" ></i>
+                                {{$value->name}}
                             </div><div class="col-md-1 col-xs-1">
                                 <h4 class="product-name"><strong><span id="lblText_0">{{$value->description}}</span></strong></h4>
                             </div>

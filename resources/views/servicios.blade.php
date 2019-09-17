@@ -150,62 +150,64 @@
                             </button>
                         </div>
                         <div class="modal-body">
-                            <form action="" method="POST" enctype="multipart/form-data"></form>
-                            {{ csrf_field() }}
-                            <div class="row">
-                                <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                                    <label for="name" class="col-md-2 control-label" style="margin-top: 1%;">Nombre</label>
-                                    <div class="col-md-10">
-                                        <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
-                                        @if ($errors->has('name'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('name') }}</strong>
-                                            </span>
-                                        @endif
+                            <form action="{{route('crearCotizacion')}}" method="POST" enctype="multipart/form-data">
+                                {{ csrf_field() }}
+                                <div class="row">
+                                    <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
+                                        <label for="name" class="col-md-2 control-label" style="margin-top: 1%;">Nombre</label>
+                                        <div class="col-md-10">
+                                            <input id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" required autofocus>
+                                            @if ($errors->has('name'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('name') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                        <label for="email" class="col-md-2 control-label" style="margin-top: 1%;">E-mail</label>
+                                        <div class="col-md-10">
+                                            <input id="email" type="text" class="form-control" name="email" value="{{ old('email') }}" required autofocus>
+                                            @if ($errors->has('email'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('email') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="form-group{{ $errors->has('telefono') ? ' has-error' : '' }}">
+                                        <label for="telefono" class="col-md-2 control-label" style="margin-top: 1%;">Telefono</label>
+                                        <div class="col-md-10">
+                                            <input id="telefono" type="text" class="form-control" name="telefono" value="{{ old('telefono') }}" required autofocus>
+                                            @if ($errors->has('telefono'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('telefono') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <div class="form-group{{ $errors->has('mensaje') ? ' has-error' : '' }}">
+                                        <label for="mensaje" class="col-md-2 control-label" style="margin-top: 1%;">Comentarios</label>
+                                        <div class="col-md-10">
+                                            <textarea id="mensaje" class="form-control" name="mensaje" value="{{ old('mensaje') }}" required autofocus></textarea>
+                                            @if ($errors->has('mensaje'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('mensaje') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
                                     </div>
                                 </div>
-                                <div class="form-group{{ $errors->has('emial') ? ' has-error' : '' }}">
-                                    <label for="emial" class="col-md-2 control-label" style="margin-top: 1%;">E-mail</label>
-                                    <div class="col-md-10">
-                                        <input id="emial" type="text" class="form-control" name="emial" value="{{ old('emial') }}" required autofocus>
-                                        @if ($errors->has('emial'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('emial') }}</strong>
-                                            </span>
-                                        @endif
-                                    </div>
+                                <br>
+                                <div  style="text-align: center; color: #31708f;">
+                                    "Nota! En pocos minutos un asesor del área técnica se comunicara contigo"
                                 </div>
-                                <div class="form-group{{ $errors->has('telefono') ? ' has-error' : '' }}">
-                                    <label for="telefono" class="col-md-2 control-label" style="margin-top: 1%;">Telefono</label>
-                                    <div class="col-md-10">
-                                        <input id="telefono" type="text" class="form-control" name="telefono" value="{{ old('telefono') }}" required autofocus>
-                                        @if ($errors->has('telefono'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('telefono') }}</strong>
-                                            </span>
-                                        @endif
-                                    </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                    <input type="hidden" name="id" id="id" value="{{$dataArea->id}}">
+                                    <input type="submit" class="btn btn-primary" value="SOLICITAR">
                                 </div>
-                                <div class="form-group{{ $errors->has('mensaje') ? ' has-error' : '' }}">
-                                    <label for="mensaje" class="col-md-2 control-label" style="margin-top: 1%;">Comentarios</label>
-                                    <div class="col-md-10">
-                                        <textarea id="mensaje" class="form-control" name="mensaje" value="{{ old('mensaje') }}" required autofocus></textarea>
-                                        @if ($errors->has('mensaje'))
-                                            <span class="help-block">
-                                                <strong>{{ $errors->first('mensaje') }}</strong>
-                                            </span>
-                                        @endif
-                                    </div>
-                                </div>
-                            </div>
-                            <br>
-                            <div  style="text-align: center; color: #31708f;">
-                                "Nota! En pocos minutos un asesor del área técnica se comunicara contigo"
-                            </div>
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                            <input type="submit" class="btn btn-primary" value="SOLICITAR">
+                            </form>
                         </div>
                     </div>
                 </div>

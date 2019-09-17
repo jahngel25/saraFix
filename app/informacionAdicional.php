@@ -9,9 +9,9 @@ class informacionAdicional extends Model
     protected $table = 'informacion_adicional';
     protected $fillable = [
                             'id',
-                            'identificacion,',
-                            'fecha_nacimiento,',
-                            'img_foto,',
+                            'identificacion',
+                            'fecha_nacimiento',
+                            'img_foto',
                             'direccion',
                             'transporte',
                             'documento_doc',

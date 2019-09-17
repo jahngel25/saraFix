@@ -3,8 +3,21 @@
     height: 36px !important;
     margin-bottom: 4%;
 }
+
+@-webkit-keyframes autofill {
+    to {
+        color: #000000 !important;
+        background: transparent !important;
+    }
+}
+
+input:-webkit-autofill {
+    -webkit-animation-name: autofill;
+    -webkit-animation-fill-mode: both;
+}
+
 body{
-    background-image: url("/img/fondo1.jpg");
+    background-image: url("/img/fondo2.jpg");
     overflow-x:hidden;
     overflow-y:visible;
     font-weight: bolder;
@@ -19,4 +32,8 @@ body{
 
 label {
     color: #000000 !important;
+}
+
+.iconColor{
+    color: #dee047;
 }

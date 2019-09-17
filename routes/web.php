@@ -24,6 +24,9 @@ Route::get('/404', 'ErrorController@error404')->name('error404');
 
 Route::get('/registreProvider', 'Auth\RegisterController@registerProvider')->name('registerProvider');
 Route::get('/servicios/{id}', 'PublicController@traerServicios')->name('servicios');
+Route::get('/contactenos', 'PublicController@indexContactenos')->name('contactenos');
+Route::post('/crearContactenos', 'PublicController@createContactenos')->name('crearContactenos');
+Route::post('/crearCotizacion', 'PublicController@createCotizacion')->name('crearCotizacion');
 Route::get('/ordenServicio/{id}', 'ControllerOrdenServicio@contratar')->name('ordenServicio');
 Route::post('crearOrdenServicio','ControllerOrdenServicio@crear')->name('crearOrdenServicio');
 
@@ -36,6 +39,10 @@ Route::group(['middleware' => 'Administrador','prefix' => 'Administrador'], func
     Route::get('/Servicio', 'ControllerNuevosServicios@index')->name('servicioList');
     Route::get('/crearServicio', 'ControllerNuevosServicios@create')->name('frmCreacionServicio');
     Route::post('/crearServicio', 'ControllerNuevosServicios@store')->name('crearServicio');
+    Route::get('/usuarioConstructor','AdministradorController@indexUsuarioConstrutor')->name('usuarioConstructor');
+    Route::get('/usuarioCliente','AdministradorController@indexUsuarioCliente')->name('usuarioCliente');
+    Route::get('/contactenos','AdministradorController@indexContactenos')->name('contactenosAdmin');
+    Route::get('/cotizaciones','AdministradorController@indexCotizaciones')->name('cotizacionesAdmin');
 });
 
 Route::group(['middleware' => 'Cliente','prefix' => 'Cliente'], function () {

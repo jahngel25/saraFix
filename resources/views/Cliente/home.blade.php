@@ -5,11 +5,12 @@
         @foreach($dataOrdenServicio as $value)
         <div class="row">
             <div class="col-md-10 col-md-offset-1">
-                <div class="panel panel-default" style="border-color: #c3c3c3; background-color: #ffdada; ">
+                <div class="panel panel-default">
                     <div class="row" style="padding: 3%">
-                        <div class="col-md-1 col-xs-1">
-                            <i class="fa fa-check-square-o fa-4x" aria-hidden="true" ></i>
-                        </div><div class="col-md-1 col-xs-1">
+                        <div class="col-md-1 col-xs-1 text-center">
+                            <i class="fa fa-spinner fa-2x" aria-hidden="true" style="color: #DEE047"></i>
+                        </div>
+                        <div class="col-md-1 col-xs-1 text-center">
                             <h4 class="product-name"><strong><span id="lblText_0">{{$value->description}}</span></strong></h4>
                         </div>
                         <div class="col-md-10 col-xs-10">

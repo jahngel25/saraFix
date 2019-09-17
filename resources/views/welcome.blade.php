@@ -27,6 +27,7 @@
                 <a href="{{ url('/login') }}" class="textClick">Iniciar Sesion</a>
                 <a href="{{ url('/register') }}" class="textClick">Registrame</a>
                 <a href="{{ route('registerProvider') }}" class="textClick">Trabaja con nosotros</a>
+                <a href="{{route('contactenos')}}" class="textClick">Contactenos</a>
             @endif
         </div>
     @endif
