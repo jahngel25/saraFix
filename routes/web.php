@@ -27,26 +27,44 @@ Route::get('/servicios/{id}', 'PublicController@traerServicios')->name('servicio
 Route::get('/contactenos', 'PublicController@indexContactenos')->name('contactenos');
 Route::post('/crearContactenos', 'PublicController@createContactenos')->name('crearContactenos');
 Route::post('/crearCotizacion', 'PublicController@createCotizacion')->name('crearCotizacion');
-Route::get('/ordenServicio/{id}', 'ControllerOrdenServicio@contratar')->name('ordenServicio');
+Route::get('/ordenServicio/{id}/{guid}/{id_area}', 'ControllerOrdenServicio@contratar')->name('ordenServicio');
 Route::post('crearOrdenServicio','ControllerOrdenServicio@crear')->name('crearOrdenServicio');
+Route::get('deleteOrdenServicio/{key}/{id}/{guid}/{id_area}','ControllerOrdenServicio@delete')->name('deleteOrdenServicio');
 
 
 Route::group(['middleware' => 'Administrador','prefix' => 'Administrador'], function () {
     Route::get('/home', 'AdministradorController@index')->name('homeAdmin');
+    //routes Area
     Route::get('/Area', 'ControllerArea@index')->name('area');
+    Route::get('/editArea/{id}', 'ControllerArea@edit')->name('areaEdit');
+    Route::post('/actionEditArea/{id}', 'ControllerArea@update')->name('actionEditArea');
     Route::get('/formularioCreacion', 'ControllerArea@create')->name('frmCreacion');
     Route::post('/crearArea', 'ControllerArea@store')->name('crearArea');
+    Route::get('/infoUser/{id}','AdministradorController@infoUser')->name('infoUser');
+
+    //routes servicio
     Route::get('/Servicio', 'ControllerNuevosServicios@index')->name('servicioList');
     Route::get('/crearServicio', 'ControllerNuevosServicios@create')->name('frmCreacionServicio');
     Route::post('/crearServicio', 'ControllerNuevosServicios@store')->name('crearServicio');
+    Route::get('/editServicio/{id}', 'ControllerNuevosServicios@edit')->name('servicioEdit');
+    Route::post('/actionEditServicio/{id}', 'ControllerNuevosServicios@update')->name('actionEditServicio');
+
+
     Route::get('/usuarioConstructor','AdministradorController@indexUsuarioConstrutor')->name('usuarioConstructor');
+    Route::get('/updateEstado/{id}','AdministradorController@updateEstado')->name('updateEstado');
     Route::get('/usuarioCliente','AdministradorController@indexUsuarioCliente')->name('usuarioCliente');
     Route::get('/contactenos','AdministradorController@indexContactenos')->name('contactenosAdmin');
+    Route::post('/emailContactenos','AdministradorController@emailContactenos')->name('emailContactenos');
+    Route::post('/emailCotizacion','AdministradorController@emailCotizacion')->name('emailCotizacion');
     Route::get('/cotizaciones','AdministradorController@indexCotizaciones')->name('cotizacionesAdmin');
 });
 
 Route::group(['middleware' => 'Cliente','prefix' => 'Cliente'], function () {
     Route::get('/home', 'ClienteController@index')->name('homeCliente');
+    Route::get('/compras', 'ClienteController@compras')->name('compras');
+    Route::get('infoServicios/{id}','ClienteController@informacionServicio')->name('infoServi');
+    Route::post('calificar', 'ClienteController@calificar')->name('calificarTodero');
+    Route::get('/infoUser/{id}','ClienteController@infoUser')->name('infoUserAsig');
 });
 
 Route::group(['middleware' => 'Todero','prefix' => 'Todero'], function () {
@@ -56,9 +74,12 @@ Route::group(['middleware' => 'Todero','prefix' => 'Todero'], function () {
     Route::post('/informacionAdicional','ToderoController@createInformacionAdicional')->name('informacionAdicional');
     Route::get('/traerDepartamento/{id}','ToderoController@traerDepartamento')->name('traerDepartamento');
     Route::get('/traerCiudad/{id}','ToderoController@traerCiudad')->name('traerCiudad');
-
+    Route::get('infoServicios/{id}','ToderoController@informacionServicio')->name('infoServicios');
+    Route::get('servicio/realizados','ToderoController@trabajosRealizados')->name('realizados');
+    Route::get('servicio/proceso','ToderoController@trabajosProceso')->name('proceso');
+    Route::post('servicio/terminar','ToderoController@terminarTrabajo')->name('terminar');
+    Route::post('calificar', 'ToderoController@calificar')->name('calificarCliente');
 });
-
 
 
 

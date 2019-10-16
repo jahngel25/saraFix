@@ -6,6 +6,7 @@ use App\area;
 use Illuminate\Http\File;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Alert;
 
 class ControllerArea extends Controller
 {
@@ -64,9 +65,11 @@ class ControllerArea extends Controller
                 'status' => 1
             ]);
 
+            Alert::success('Información creada', 'Hecho');
+
         }catch (\Exception $e){
 
-            return $e->getMessage();
+            Alert::error('Ocurrio un incoveniente durante el proceso','Opps');
         }
 
         return $this->index();
@@ -91,7 +94,8 @@ class ControllerArea extends Controller
      */
     public function edit($id)
     {
-        //
+        $modelArea = area::find($id);
+        return view('area.edit', compact('modelArea','id'));
     }
 
     /**
@@ -103,19 +107,46 @@ class ControllerArea extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
-    }
+        try
+        {
+            $modelArea = area::find($id);
+            if ($request->file('img'))
+            {
+                $file = $request->file('img');
+                $nombreImg = $file->getClientOriginalName();
+                Storage::disk('local')->put($nombreImg,  \File::get($file));
+            }
+            else
+            {
+                $nombreImg = $modelArea->img;
+            }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
-    }
+            if ($request->file('img_inter'))
+            {
+                $fileInter = $request->file('img_inter');
+                $nombreImgIn = $fileInter->getClientOriginalName();
+                Storage::disk('local')->put($nombreImgIn,  \File::get($fileInter));
+            }
+            else
+            {
+                $nombreImgIn = $modelArea->img_inter;
+            }
 
+            $modelArea->name = $request->get('name');
+            $modelArea->description = $request->get('description');
+            $modelArea->img = $nombreImg;
+            $modelArea->texto = $request->get('texto');
+            $modelArea->img_inter = $nombreImgIn;
+            $modelArea->save();
+
+            Alert::success('Información actualizada', 'Hecho');
+        }
+        catch (\Exception $e)
+        {
+            Alert::error('Ocurrio un incoveniente durante el proceso','Opps');
+        }
+
+        return $this->edit($modelArea->id);
+    }
 
 }

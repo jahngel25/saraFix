@@ -33,6 +33,7 @@
                                     <th>img</th>
                                     <th>Precio</th>
                                     <th>Servicio</th>
+                                    <th>Editar</th>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -43,6 +44,7 @@
                                         <td style="text-align: center"><input type="image"  class="img-responsive" width="100" height="80" src="{{asset('uploads/'.$value->img)}}"></td>
                                         <td>{{$value->precio}}</td>
                                         <td>{{$value->areaName}}</td>
+                                        <td style="text-align: center"><a href="{{route('servicioEdit', $value->id)}}"><i class="fa fa-pencil-square-o iconColor" aria-hidden="true"></i></a></td>
                                     </tr>
                                 @endforeach
                                 </tbody>

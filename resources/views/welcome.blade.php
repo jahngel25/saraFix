@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="{{asset('css/redes.css')}}">
     <link rel="stylesheet" href="{{asset('css/welcome.css')}}">
     <link rel="stylesheet" href="{{asset('css/footer.css')}}">
+    <link rel="stylesheet" href="{{asset('css/animate.css')}}">
 </head>
 <nav class="flex-center position-ref full-height col-md-12">
     @if (Route::has('login'))
@@ -33,14 +34,14 @@
     @endif
 
     <div class="content">
-        <div class="title m-b-md textHome">
+        <div class="title m-b-md textHome wow fadeInDown">
             <img src="{{asset('img/fixlog-04.png')}}" alt="" style="width: 50%">
         </div>
 
-        <div class="links">
+        <section class="links wow fadeInDown">
             <a href="#">Reparaciones para el hogar</a><br>
             <a href="#">Desde arreglar tu bicicleta, hasta remodelaciónes en general…</a>
-        </div>
+        </section>
     </div>
     <div id="socialMobil" class="text-center center-block">  <br />
         <a href="#facebook" class="redF"><i id="social-fb2" class="fa fa-facebook-square fa-4x social"></i></a>
@@ -86,7 +87,7 @@
         <div class="row">
             <div class="col-lg-12">
                 <ul class="timeline">
-                    <li>
+                    <li class="wow bounceInLeft">
                         <div class="timeline-image">
                             <img class="img-circle img-responsive" src="img/logoRepair.png" alt="Reparaciones a domicilio">
                         </div>
@@ -100,7 +101,7 @@
                             </div>
                         </div>
                     </li>
-                    <li class="timeline-inverted">
+                    <li class="timeline-inverted wow slideInRight">
                         <div class="timeline-image">
                             <img class="img-circle img-responsive" src="img/perfilPersonal.png" alt="Reparaciones domiciliarias">
                         </div>
@@ -114,7 +115,7 @@
                             </div>
                         </div>
                     </li>
-                    <li>
+                    <li class="wow bounceInLeft">
                         <div class="timeline-image">
                             <img class="img-circle img-responsive" src="img/tratoTodaru.png" alt="Reparaciones del hogar">
                         </div>
@@ -140,7 +141,7 @@
             </div>
         </div>
         <div class="row text-center">
-            <div class="col-md-4">
+            <div class="col-md-4 wow fadeInDown" data-wow-delay="100ms">
                         <span class="fa-stack fa-4x">
                             <i class="fa fa-circle fa-stack-2x text-primary"></i>
                             <i class="fa fa-clock-o fa-stack-1x fa-inverse"></i>
@@ -148,7 +149,7 @@
                 <h4 class="service-heading">Servicio express</h4>
                 <p class="text-muted">Todos nuestros profesionales son aprobados y entrenados por nuestro equipo. Validamos todos sus antecedentes para tu tranquilidad.</p>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 wow fadeInDown" data-wow-delay="100ms">
                         <span class="fa-stack fa-4x">
                             <i class="fa fa-circle fa-stack-2x text-primary"></i>
                             <i class="fa fa-gavel fa-stack-1x fa-inverse"></i>
@@ -156,7 +157,7 @@
                 <h4 class="service-heading">Seguridad ante todo</h4>
                 <p class="text-muted">Olvídate de las prestaciones sociales, dotaciones, herramientas y seguridad industrial, todo corre por nuestra cuenta.</p>
             </div>
-            <div class="col-md-4">
+            <div class="col-md-4 wow fadeInDown" data-wow-delay="100ms">
                         <span class="fa-stack fa-4x">
                             <i class="fa fa-circle fa-stack-2x text-primary"></i>
                             <i class="fa fa-thumbs-up fa-stack-1x fa-inverse"></i>
@@ -168,9 +169,23 @@
     </div>
     <script src="{{asset('js/jquery.js')}}"></script>
     <script src="{{asset('js/bootstrap.js')}}"></script>
+    <script src="{{asset('js/wow.js')}}"></script>
     <script src="{{asset('js/todaruVideo.js')}}"></script>
     <script src="{{asset('js/ScriptMenu.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/sweetalert.min.js')}}"></script>
+    @include('sweet::alert')
     <script type="text/javascript">
+    wow = new WOW(
+        {
+            animateClass: 'animated',
+            offset:       100,
+            callback:     function(box) {
+                console.log("WOW: animating <" + box.tagName.toLowerCase() + ">")
+            }
+        }
+    );
+    wow.init();
+
     $(document).ready(function(){
         $.ajax({
             type:'POST',
@@ -183,7 +198,7 @@
                     var stringDiv = '<a href="{{route('servicios', 'parameter')}}" style="color: #fff">Ver mas...</a>';
                     var result = stringDiv.replace("parameter", value['id']);
 
-                    $('#contenedorAreas').append('<div class="col-md-4 col-sm-6 portfolio-item" style="margin-top: 2%">\n' +
+                    $('#contenedorAreas').append('<div class="col-md-4 col-sm-6 portfolio-item wow pulse" style="margin-top: 2%">\n' +
                         '<div class="containerImg">\n' +
                         '<img src="img/'+ value['img'] +'" class="img-thumbnail" alt="Servicios de plomeria" class="image">\n' +
                         '<div class="overlay">\n' +

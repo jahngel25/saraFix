@@ -7,6 +7,7 @@ use App\servicios;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Alert;
 
 class ControllerNuevosServicios extends Controller
 {
@@ -40,6 +41,8 @@ class ControllerNuevosServicios extends Controller
                 'id_area' => $request['id_area']
             ]);
 
+            Alert::success('Información creada', 'Hecho');
+
         }catch (\Exception $e){
 
             return $e->getMessage();
@@ -47,5 +50,52 @@ class ControllerNuevosServicios extends Controller
 
         return $this->index();
 
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function edit($id)
+    {
+        $modelServicio = servicios::find($id);
+        $areas = area::all();
+        return view('Servicios.edit', compact('modelServicio','areas','id'));
+    }
+
+    public function update(Request $request, $id)
+    {
+        $modelServicio = servicios::find($id);
+        if ($request->file('img'))
+        {
+            $file = $request->file('img');
+            $nombreImg = $file->getClientOriginalName();
+            Storage::disk('local')->put($nombreImg,  \File::get($file));
+        }
+        else
+        {
+            $nombreImg = $modelServicio->img;
+        }
+
+        $modelServicio->name = $request->get('name');
+        $modelServicio->description = $request->get('description');
+        $modelServicio->img = $nombreImg;
+        $modelServicio->precio = $request->get('precio');
+        $modelServicio->id_area = $request->get('id_area');
+        $modelServicio->save();
+
+        Alert::success('Información actualizada', 'Hecho');
+
+        return $this->edit($modelServicio->id);
+    }
+
+    public function destroy($id)
+    {
+        $modelServicio = area::find($id);
+        $modelServicio->delete();
+
+        return redirect('/crud');
     }
 }

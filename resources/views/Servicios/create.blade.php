@@ -5,7 +5,7 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="panel panel-default">
-                    <div class="panel-heading">Reguistrar Area</div>
+                    <div class="panel-heading">Registrar Servicios</div>
                     <div class="panel-body">
                         <form class="form-horizontal" method="POST" action="{{ route('crearServicio') }}" files="true" enctype="multipart/form-data">
                             {{ csrf_field() }}

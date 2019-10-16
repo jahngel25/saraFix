@@ -5,9 +5,14 @@ namespace App\Http\Controllers;
 use App\contactenos;
 use App\cotizacion;
 use App\informacionAdicional;
+use App\Mail\ContactenosEmail;
+use App\Mail\CotizacionEmail;
 use App\relationTypeUsers;
 use App\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
+use Alert;
 
 class AdministradorController extends Controller
 {
@@ -59,5 +64,50 @@ class AdministradorController extends Controller
         $modelCotizacion = cotizacion::query()->get();
 
         return view('Administrador.cotizacion', compact('modelCotizacion'));
+    }
+
+    public function emailContactenos(Request $request)
+    {
+        Mail::to($request->get('email'))
+              ->send(new ContactenosEmail($request));
+        Alert::success('Email enviado', 'Hecho');
+
+        return $this->indexContactenos();
+    }
+
+    public function emailCotizacion(Request $request)
+    {
+        Mail::to($request->get('email'))
+            ->send(new CotizacionEmail($request));
+
+        Alert::success('Email enviado', 'Hecho');
+        return $this->indexContactenos();
+    }
+
+    public function updateEstado($id)
+    {
+        $modelUser = relationTypeUsers::where('id_user', $id)->first();
+        $modelUser->status = 1;
+        $modelUser->save();
+
+        Alert::success('Usuario Aceptado', 'Hecho');
+        return $this->indexUsuarioConstrutor();
+    }
+
+    public function infoUser($id)
+    {
+        $dataUser = User::query()->select(DB::raw('informacion_adicional.img_foto, users.name, users.email, informacion_adicional.identificacion, informacion_adicional.fecha_nacimiento'))
+                             ->join('informacion_adicional', 'informacion_adicional.id_user','=','users.id')
+                             ->where('users.id',$id)
+                             ->first()
+                             ->toArray();
+
+        $data = [];
+        foreach ($dataUser as $key => $value)
+        {
+            $data[trans('formularios.'.$key)] = $value;
+        }
+
+        return $data;
     }
 }

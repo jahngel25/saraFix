@@ -9,6 +9,7 @@ use App\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Alert;
 
 class RegisterController extends Controller
 {
@@ -91,6 +92,8 @@ class RegisterController extends Controller
             $typeUser = new ControllerRelationUserType();
             $typeUser->create($insertField->id, $data['type_user'], $status);
         }
+
+        Alert::success('Registro realizado')->persistent("Cerrar");
 
         return $insertField;
 

@@ -1,5 +1,7 @@
 <?php
 
+use UxWeb\SweetAlert\SweetAlertServiceProvider;
+
 return [
 
     /*
@@ -51,7 +53,7 @@ return [
     |
     */
 
-    'url' => env('APP_URL', 'http://localhost'),
+    'url' => env('APP_URL', 'http://fix-contract.com'),
 
     /*
     |--------------------------------------------------------------------------
@@ -167,6 +169,8 @@ return [
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
+        UxWeb\SweetAlert\SweetAlertServiceProvider::class,
+
 
         /*
          * Application Service Providers...
@@ -177,8 +181,6 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Yajra\Datatables\DatatablesServiceProvider::class,
-        UxWeb\SweetAlert\SweetAlertServiceProvider::class,
-
     ],
 
     /*
@@ -228,7 +230,6 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'Alert' => UxWeb\SweetAlert\SweetAlert::class,
-
     ],
 
 ];

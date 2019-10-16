@@ -7,23 +7,25 @@
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="row" style="padding: 3%">
-                        <div class="col-md-1 col-xs-1 text-center">
+                        <div class="col-md-1 text-center">
                             <i class="fa fa-spinner fa-2x" aria-hidden="true" style="color: #DEE047"></i>
                         </div>
-                        <div class="col-md-1 col-xs-1 text-center">
+                        <div class="col-md-1 text-center">
                             <h4 class="product-name"><strong><span id="lblText_0">{{$value->description}}</span></strong></h4>
                         </div>
-                        <div class="col-md-10 col-xs-10">
-                            <div class="col-md-3 col-xs-4 text-center">
+                        <div class="col-md-10">
+                            <div class="col-md-3 text-center">
                                 <h4><strong><span id="lblPrecio_0">{{$value->date}}</span></strong></h4>
                             </div>
-                            <div class="col-md-3 col-xs-4 text-center">
+                            <div class="col-md-3 text-center">
                                 <h4><strong><span id="lblPrecio_0">${{$value->total}} Pesos</span></strong></h4>
                             </div>
-                            <div class="col-md-3 col-xs-4 text-center" style="padding-top: 2%;">
-                                <i class="fa fa-eye fa-2x" aria-hidden="true"></i>
+                            <div class="col-md-3 text-center" style="padding-top: 2%;">
+                                <a href="" data-toggle="modal" data-target="#exampleModal" onclick="infoServicios({{$value->id}})">
+                                    <i class="fa fa-eye fa-2x iconColor" aria-hidden="true"></i>
+                                </a>
                             </div>
-                            <div class="col-md-3 col-xs-4" align="right" style="padding-top: 2%;">
+                            <div class="col-md-3" align="right" style="padding-top: 2%;">
                                 <input type="hidden" name="pago_{{$value->id}}" value="{{$value->id}}">
                                 <form>
                                     <script src='https://checkout.epayco.co/checkout.js'
@@ -51,9 +53,54 @@
         </div>
         @endforeach
     </div>
+    <div class="modal fade" id="exampleModal" style="background-color: transparent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 class="modal-title textAlingCenter" id="exampleModalLabel">Información del Servcio</h3>
+                </div>
+                <div class="modal-body">
+                    {{ csrf_field() }}
+                    <div class="row" id="infoServicios">
+
+                    </div>
+                    <div class="modal-footer">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 @endsection
 @section('contentScript')
     <script>
+        function infoServicios(id) {
+            $('#infoServicios').html('');
+            var stringDiv = '{{route('infoServi', ['parameter'])}}';
+            var result = stringDiv.replace("parameter", id);
+
+            $.ajax({
+                type:'GET',
+                url: result,
+                success:function(data) {
+                    $.each(data, function( index, value) {
+                        $('#infoServicios').append('<div class="row"><div class="col-md-4">\n' +
+                            '    <input type="image" name="img_0" id="img_0" class="img-responsive" src="/img/'+value['img']+'">\n' +
+                            '</div><div class="col-md-4">\n' +
+                            '    <h4><strong>'+value['name']+'</strong></h4>\n' +
+                            '</div>\n' +
+                            '<div class="col-md-4">\n' +
+                            '    <h4><strong>$'+value['precio']+'</strong></h4>\n' +
+                            '</div>\n' +
+                            '</div>');
+                    });
+                }
+            });
+        }
+
         function generarPagoPayCo(costos){
 
             var handler = ePayco.checkout.configure({

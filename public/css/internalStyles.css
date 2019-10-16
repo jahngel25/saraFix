@@ -37,3 +37,25 @@ label {
 .iconColor{
     color: #dee047;
 }
+
+.textAlingCenter
+{
+    text-align: center;
+}
+
+.styleTextarea
+{
+    width: 45%;
+    border-radius: 8px;
+    height: 5rem;
+}
+
+#img-upload
+{
+    width: 25%;
+    margin-top: 6%;
+    background-repeat: no-repeat;
+    background-position: 65%;
+    border-radius: 50%;
+    background-size: 100% auto;
+}

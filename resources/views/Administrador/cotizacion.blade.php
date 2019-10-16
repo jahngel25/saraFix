@@ -39,7 +39,11 @@
                                         <td>{{$value->email}}</td>
                                         <td>{{$value->telefono}}</td>
                                         <td>{{$value->mensaje}}</td>
-                                        <td style="text-align: center"><i class="fa fa-check-circle fa-2x iconColor" aria-hidden="true"></i></td>
+                                        <td style="text-align: center">
+                                            <a href="" data-toggle="modal" data-target="#exampleModal">
+                                                <i class="fa fa-check-circle fa-2x iconColor" aria-hidden="true" onclick="valueInput('{{$value->email}}','{{$value->name}}')"></i>
+                                            </a>
+                                        </td>
                                     </tr>
                                 @endforeach
                                 </tbody>
@@ -49,12 +53,52 @@
                     </div>
                 </div>
             </div>
+            <div class="modal fade" id="exampleModal" style="background-color: transparent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                            <h3 class="modal-title textAlingCenter" id="exampleModalLabel">Responder cotización.</h3>
+                        </div>
+                        <div class="modal-body">
+                            <form action="{{route('emailCotizacion')}}" method="POST" enctype="multipart/form-data">
+                                {{ csrf_field() }}
+                                <div class="row">
+                                    <div class="form-group{{ $errors->has('respuesta') ? ' has-error' : '' }}">
+                                        <label for="respuesta" class="col-md-4 control-label">Respuesta</label>
+                                        <div class="col-md-12">
+                                            <textarea name="respuesta" id="respuesta" cols="30" rows="30" style="height: 6rem;"></textarea>
+                                            @if ($errors->has('respuesta'))
+                                                <span class="help-block">
+                                                    <strong>{{ $errors->first('respuesta') }}</strong>
+                                                </span>
+                                            @endif
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="email" id="email">
+                                    <input type="hidden" name="name" id="name">
+                                </div>
+                                <div class="modal-footer">
+                                    <input type="submit" class="btn btn-primary" value="Responder">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 @endsection
 
 @section('contentScript')
     <script>
+        function valueInput(email, name)
+        {
+            $('#email').val(email);
+            $('#name').val(name);
+        }
         $(document).ready( function () {
             $('#tableCotizacion').DataTable({
                 pageLength: 5,

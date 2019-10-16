@@ -26,6 +26,8 @@
         <link href="{{ asset('css/internalStyles.css') }}" rel="stylesheet">
     @endif
     @yield('contentStyles')
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css" />
+    <link href="{{asset('css/star-rating.css')}}" rel="stylesheet">
 </head>
 <body>
     <div id="app">
@@ -47,7 +49,7 @@
                             <img src="{{asset('img/navLogo.png')}}" alt="" style="display: initial !important;">
                         </a>
                     @else
-                        <a class="navbar-brand" href="#">
+                        <a class="navbar-brand" href="{{ url('/') }}">
                             <img src="{{asset('img/navLogo.png')}}" alt="" style="display: initial !important;">
                         </a>
                     @endif
@@ -108,8 +110,13 @@
     <script type="text/javascript" src="{{asset('js/materialize.js') }}"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datetimepicker/4.17.47/js/bootstrap-datetimepicker.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
-    <script type="text/javascript" src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     <script type="text/javascript" src="{{asset('js/bootstrap-datetimepicker.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/sweetalert.min.js')}}"></script>
+    <script type="text/javascript" src="{{asset('js/star-rating.min.js')}}"></script>
+    @include('sweet::alert')
     @yield('contentScript')
+    <script>
+        var starrating = new StarRating( document.getElementById('star-rating'));
+    </script>
 </body>
 </html>

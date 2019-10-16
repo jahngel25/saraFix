@@ -109,7 +109,7 @@
 <div class="container" style="margin-top: 3%">
     <div class="row">
         <div class="col-sm-12">
-            <div class="panel panel-warning">
+            <div class="panel panel-success">
                 <div class="panel-heading clickable">
                     <h3 class="panel-title text-center">
                         PREGUNTAS FRECUENTES</h3>
@@ -136,7 +136,7 @@
     </div>
     <br><br>
     <div class="borde_marco" >
-        <form action="{{route('crearOrdenServicio')}}" enctype="multipart/form-data" method="post">
+        <form action="{{route('crearOrdenServicio')}}" enctype="multipart/form-data" method="post" id="ordenServicio">
             {{ csrf_field() }}
             <div class="col-sm-5">
                 <div class="panel panel-default" style="border-color: #c3c3c3;">
@@ -197,29 +197,29 @@
                                             <h5><i class="fa fa-shopping-cart" aria-hidden="true"></i> Shopping Cart</h5>
                                         </div>
                                         <div class="col-xs-7">
-                                            <a href="javascript:history.back()" class="btn btn-default btn-sm btn-block">
+                                            <a href="{{route('servicios', $id_area)}}" class="btn btn-default btn-sm btn-block">
                                                 <i class="fa fa-reply" aria-hidden="true"></i> Necesitas mas servicios?
                                             </a>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            @if(isset($modelServicio))
-                                @foreach($modelServicio as $value)
-                                    <div class="row" style="padding: 3%" id="contenedor_{{$value->id}}">
+                            @if($modelServicio != '')
+                                @foreach($modelServicio as $key => $value)
+                                    <div class="row" style="padding: 3%" id="contenedor_{{$value['id']}}">
                                         <div class="col-xs-2">
-                                            <input type="image" name="img_0" id="img_0" class="img-responsive" src="{{asset('img/'.$value->img)}}">
+                                            <input type="image" name="img_0" id="img_0" class="img-responsive" src="{{asset('img/'.$value['img'])}}">
                                         </div><div class="col-xs-3">
-                                            <h4 class="product-name"><strong><span id="lblText_0">{{$value->name}}</span></strong></h4>
+                                            <h4 class="product-name"><strong><span id="lblText_0">{{$value['name']}}</span></strong></h4>
                                             <h4 class="Incluye"><small><a id="lblRef_0" href="javascript:__doPostBack('lblRef_0','')">Que incluye este servicio</a></small></h4>
                                         </div>
                                         <div class="col-xs-6">
                                             <div class="col-xs-6 text-right">
-                                                <h6><strong><span id="lblPrecio_0">${{$value->precio}} Pesos</span></strong></h6>
+                                                <h6><strong><span id="lblPrecio_0">${{$value['precio']}} Pesos</span></strong></h6>
                                             </div>
                                             <div class="col-xs-3">
-                                                <input type="hidden" name="servicios[]" value="{{$value->id}}">
-                                                <button onclick="eliminarContenedor('contenedor_{{$value->id}}')" class="btn btn-xs">Eliminar</button>
+                                                <input type="hidden" name="servicios[]" value="{{$value['id']}}">
+                                                <a href="{{route('deleteOrdenServicio',[$key,$id,$guid,$id_area] )}}"><button type="button" class="btn btn-xs" id="eliminar">Eliminar</button></a>
                                             </div>
                                         </div>
                                     </div>
@@ -231,11 +231,8 @@
                                         <div class="col-xs-6">
                                             <div class="input-group">
                                                 <span class="input-group-addon"><i class="fa fa-gift" aria-hidden="true"></i></span>
-                                                <input type="text" style="border-color: #c0c0c0" class="form-control" placeholder="Tienes un codigo promocional?" id="TextBox2" />
+                                                <input type="text" style="border-color: #c0c0c0" class="form-control" placeholder="Tienes un codigo promocional?" id="id_codigo" name="id_codigo"/>
                                             </div>
-                                        </div>
-                                        <div class="col-xs-3">
-                                            <a href="#" class="btn ">+ Añadir Codigo</a>
                                         </div>
                                     </div>
                                 </div>
@@ -264,6 +261,8 @@
 <script src="{{asset('js/todaruVideo.js')}}"></script>
 <script src="{{asset('js/ScriptMenu.js')}}"></script>
 <script src="{{asset('js/bootstrap-datetimepicker.js')}}"></script>
+<script type="text/javascript" src="{{asset('js/sweetalert.min.js')}}"></script>
+@include('sweet::alert')
 <script type="application/javascript">
 
 
@@ -273,11 +272,10 @@
         minuteStep: 10,
     });
 
+    $("#eliminar").click(function() {
+        $("#formEliminar").submit();
+    });
 
-    function eliminarContenedor(id)
-    {
-        $('#'+id).remove();
-    }
 
     function detallesProducts() {
         $('#modalPreguntas').modal('show')

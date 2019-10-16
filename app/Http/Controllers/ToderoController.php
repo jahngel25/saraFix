@@ -2,18 +2,22 @@
 
 namespace App\Http\Controllers;
 
+use App\calificarServicio;
 use App\Ciudad;
 use App\Departamento;
 use App\informacionAdicional;
 use App\Pais;
+use App\relation_servicio_orden;
 use App\relationTypeUsers;
 use App\servicioOrden;
+use App\servicios;
 use App\tipoDocumento;
 use App\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use Alert;
 
 class ToderoController extends Controller
 {
@@ -41,7 +45,17 @@ class ToderoController extends Controller
     {
         $dataPais = Pais::all();
         $dataTipoDocumento = tipoDocumento::all();
-        return view('Todero.information', compact('dataPais', 'dataTipoDocumento'));
+        $estado = relationTypeUsers::where('id_user', Auth::user()->id)->first();
+        if ($estado->status == 3)
+        {
+            $dataTodero = informacionAdicional::query()->where('id_user', '=', Auth::user()->id)->first();
+        }
+        else
+        {
+            $dataTodero = "";
+        }
+
+        return view('Todero.information', compact('dataPais', 'dataTipoDocumento', 'dataTodero'));
     }
 
     public function createInformacionAdicional(Request $request)
@@ -105,7 +119,6 @@ class ToderoController extends Controller
                 $nombreBachiller = '';
             }
 
-
             if ($request->file('documento_doc'))
             {
                 $fileEps = $request->file('eps_doc');
@@ -135,14 +148,15 @@ class ToderoController extends Controller
             $modelInfo->save();
 
             $modelUser = relationTypeUsers::where('id_user', Auth::user()->id)->first();
-            $modelUser->status = 1;
+            $modelUser->status = 3;
             $modelUser->save();
+
+            Alert::success('La informacioón sera validad por un usuario de Fix-Contract para poder empezar a trabajar con nosotros','Registro terminado')->persistent("Cerrar");
 
         }catch (\Exception $e)
         {
-            return $e;
+            Alert::error('Ocurrio un incoveniente durante el proceso','Opps');
         }
-
 
         return redirect()->route('homeTodero');
     }
@@ -159,6 +173,90 @@ class ToderoController extends Controller
         $modelCiudad = Ciudad::all()->where('id_departamento', $id);
 
         return $modelCiudad;
+    }
+
+    public function informacionServicio($id)
+    {
+        $modelServicios = relation_servicio_orden::query()->select(DB::raw('servicio.name, servicio.precio, servicio.img, area.name AS area'))
+                                            ->join('servicio', 'relation_servicio_orden.id_servicio','=','servicio.id')
+                                            ->join('area','servicio.id_area','=','area.id')
+                                            ->where('relation_servicio_orden.id_orden',$id)->get();
+        return $modelServicios;
+    }
+
+    public function trabajosProceso()
+    {
+        $dataOrdenServicio = servicioOrden::query()
+            ->select(DB::raw('orden_servicio.id, orden_servicio.date, orden_servicio.description, orden_servicio.total, users.name'))
+            ->join('users', 'users.id', '=', 'orden_servicio.id_user')
+            ->join('relation_orden_user', function ($join) {
+                $join->on('orden_servicio.id', '=', 'relation_orden_user.id_orden');
+                $join->on('relation_orden_user.id_user', '=', DB::raw(Auth::user()->id));
+            })
+            ->where('orden_servicio.status', '=', 2)->get();
+
+
+        return view('Todero.proceso', compact('dataOrdenServicio'));
+    }
+
+    public function trabajosRealizados()
+    {
+        $dataOrdenServicio = servicioOrden::query()
+            ->select(DB::raw('orden_servicio.id, orden_servicio.date, orden_servicio.description, orden_servicio.total, users.name, calificacion.status AS calificar'))
+            ->join('users', 'users.id', '=', 'orden_servicio.id_user')
+            ->leftJoin('calificacion', function ($join) {
+                $join->on('orden_servicio.id', '=', 'calificacion.id_orden');
+                $join->on('calificacion.type', '=', DB::raw('1'));
+            })
+            ->join('relation_orden_user', function ($join) {
+                $join->on('orden_servicio.id', '=', 'relation_orden_user.id_orden');
+                $join->on('relation_orden_user.id_user', '=', DB::raw(Auth::user()->id));
+            })
+            ->where('orden_servicio.status', '=', 3)->get();
+
+
+        return view('Todero.realizados', compact('dataOrdenServicio'));
+    }
+
+    public function terminarTrabajo(Request $request)
+    {
+        try
+        {
+            $modelOrden = servicioOrden::find($request['id_orden']);
+            $modelOrden->status = 3;
+            $modelOrden->save();
+
+            Alert::success('El trabajo a sido terminado', 'Hecho');
+        }
+        catch (\Exception $e)
+        {
+            Alert::error('Ocurrio un incoveniente durante el proceso','Opps');
+        }
+
+
+        return redirect(route('realizados'));
+    }
+
+    public function calificar(Request $request)
+    {
+        try{
+            $insertField =  calificarServicio::create([
+                'description' => $request['description'],
+                'puntaje' => $request['puntaje'],
+                'id_orden' => $request['id_orden'],
+                'type' => $request['type'],
+                'status' => 1
+            ]);
+
+            Alert::success('Calificación realizada', 'Gracias');
+        }
+        catch (\Exception $e)
+        {
+            Alert::error('Ocurrio un incoveniente durante el proceso','Opps');
+        }
+
+        return redirect(route('realizados'));
+
     }
 
 }

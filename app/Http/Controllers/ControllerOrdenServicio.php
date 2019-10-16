@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\codigoPromocional;
 use App\ordenDeServicio;
 use App\relation_servicio_orden;
 use App\servicioOrden;
@@ -15,42 +16,59 @@ use Alert;
 class ControllerOrdenServicio extends Controller
 {
 
-    /**
-     * @param $id
-     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
-     */
-    public function contratar($id)
+    public function contratar($id, $guid, $id_area)
     {
         try{
-            $total = 0;
-           $modelServicio = '';
-            if (isset($id))
-            {
 
-                if (Cache::get('ServiciosContratar') == null)
+            $modelServicio = '';
+
+            if ($guid != session()->get('guidData'))
+            {
+                session()->put('guidData',$guid);
+
+                if (session()->get('ServiciosContratar') == null)
                 {
-                    Cache::put('ServiciosContratar',$id, 90);
+                    session()->put('ServiciosContratar',$id);
                 }
                 else
                 {
-                    $ids = Cache::get('ServiciosContratar');
+                    $ids = session()->get('ServiciosContratar');
                     $ids = $ids.','.$id;
-                    Cache::put('ServiciosContratar',$ids, 90);
-                }
-
-                $condicion = explode(',', Cache::get('ServiciosContratar'));
-                $modelServicio = servicios::all()->whereIn('id', $condicion);
-                foreach($modelServicio as $value)
-                {
-                    $total = $total + $value->precio;
+                    session()->put('ServiciosContratar',$ids);
                 }
             }
+            $condicion = explode(',', session()->get('ServiciosContratar'));
+            if($condicion != '')
+            {
+                foreach ($condicion as $value)
+                {
+                    if ($modelServicio  == "")
+                    {
+                        $modelServicio = servicios::query()->where('id', $value)->get()->toArray();
+                    }
+                    else
+                    {
+                        $modelServicio  = array_merge($modelServicio, servicios::all()->where('id', $value)->toArray());
+                    }
+                }
+
+                $total = 0;
+                foreach($modelServicio as $value)
+                {
+                    $total = $total + $value['precio'];
+                }
+            }
+            else{
+                $total = 0;
+            }
         }
-        catch (\Exception $e){
-            return $e;
+        catch (\Exception $e)
+        {
+            Alert::error('Ocurrio un incoveniente durante el proceso','Opps');
         }
 
-        return view('ordenServicio', compact('modelServicio', 'total'));
+
+        return view('ordenServicio', compact('modelServicio', 'total', 'id_area', 'id', 'guid'));
 
     }
 
@@ -71,14 +89,23 @@ class ControllerOrdenServicio extends Controller
                     'password' => bcrypt($request['telefono']),
                 ]);
                 $typeUser = new ControllerRelationUserType();
-                $typeUser->create($insertField->id, 2);
+                $typeUser->create($insertField->id, 2,1);
                 $idUser = $insertField->id;
             }
 
+            $modelCodigo = codigoPromocional::query()->where('codigo', $request['id_codigo'])->get()->toArray();
+
+            if (isset($modelCodigo))
+            {
+                $total = $request['total'] - 5000;
+            }
+            else{
+                $total = $request['total'];
+            }
 
             $insertOrden = servicioOrden::create([
                 'description' => $request['description'],
-                'total' => $request['total'],
+                'total' => $total,
                 'id_codigo' => 1,
                 'id_user' => $idUser,
                 'address' => $request['address'],
@@ -94,15 +121,28 @@ class ControllerOrdenServicio extends Controller
                 ]);
             }
 
-            Cache::put('ServiciosContratar','', 1);
+            Alert::success('Se ha registrado su orden de servicio, si posee usuario en la aplicación el servicio queda asociado a su correo electronico de lo contrario en aplicativo le asignara uno apartir del correo ingresado y su contraseña sera el numero de telefono. Por favor ingresar para terminar el proceso de contratación.', 'Hecho')->persistent('Cerrar');
+
+            session()->put('ServiciosContratar','');
 
         }
         catch (\Exception $e){
-            return $e;
+
+            Alert::error('Ocurrio un incoveniente durante el proceso','Opps');
         }
 
-        return view('welcome');
+        return redirect(route('/'));
 
+    }
+
+    public function delete($key, $id, $guid, $area)
+    {
+        $condicion = explode(',', session()->get('ServiciosContratar'));
+        unset($condicion[$key]);
+        $stringVar = implode(',', $condicion);
+
+        session()->put('ServiciosContratar', $stringVar);
+        return redirect(route('ordenServicio', [$id, $guid, $area]));
     }
 
 }

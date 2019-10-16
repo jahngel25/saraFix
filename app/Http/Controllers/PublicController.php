@@ -7,6 +7,7 @@ use App\contactenos;
 use App\cotizacion;
 use App\servicios;
 use Illuminate\Http\Request;
+use Alert;
 
 class PublicController extends Controller
 {
@@ -47,6 +48,8 @@ class PublicController extends Controller
             dd($e);
         }
 
+        Alert::success('Información envia, en los proximos dias recibira respuesta al correo electronico ingresado', 'Hecho')->persistent('Cerrar');
+
         return $this->indexContactenos();
 
     }
@@ -66,6 +69,8 @@ class PublicController extends Controller
         {
             dd($e);
         }
+
+        Alert::success('Información envia, en los proximos dias recibira respuesta al correo electronico ingresado', 'Hecho')->persistent('Cerrar');
 
         return $this->traerServicios($request['id']);
     }

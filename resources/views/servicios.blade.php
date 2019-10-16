@@ -122,7 +122,7 @@
                                 <h4>{{$value->name}}</h4>
                                 <h4 style="color:darkred;">${{$value->precio}} Pesos</h4>
                                 <button  class="btn btn-default"> Incluye </button>
-                                <a href="{{route('ordenServicio', $value->id)}}"><button  class="btn btn-info">Contratar</button></a>
+                                <a href="{{route('ordenServicio', [$value->id, uniqid(), $dataArea->id])}}"><button  class="btn btn-info">Contratar</button></a>
                             </div>
                         </div>
                     </div>
@@ -144,10 +144,10 @@
                 <div class="modal-dialog" role="document">
                     <div class="modal-content">
                         <div class="modal-header">
-                            <h5 class="modal-title" id="exampleModalLabel">CUÉNTANOS QUE NECESITAS, EL EQUIPO DE FIX-CONTRACT DESPEJARA TODAS TUS DUDAS.</h5>
                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>
+                            <h3 class="modal-title textAlingCenter" id="exampleModalLabel">CUÉNTANOS QUE NECESITAS, EL EQUIPO DE FIX-CONTRACT DESPEJARA TODAS TUS DUDAS.</h3>
                         </div>
                         <div class="modal-body">
                             <form action="{{route('crearCotizacion')}}" method="POST" enctype="multipart/form-data">
