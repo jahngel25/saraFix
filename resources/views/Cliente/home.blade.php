@@ -41,6 +41,9 @@
                                             data-epayco-test='true'
                                             data-epayco-external='false'
                                             data-epayco-response=''
+                                            data-epayco-acepted='{{env('APP_URL')}}/Cliente/acepted/{{$value->id}}'
+                                            data-epayco-rejected='{{env('APP_URL')}}/Cliente/rejected/{{$value->id}}'
+                                            data-epayco-pending='{{env('APP_URL')}}/Cliente/pending/{{$value->id}}'
                                             data-epayco-confirmation=''
                                             data-epayco-button='https://369969691f476073508a-60bf0867add971908d4f26a64519c2aa.ssl.cf5.rackcdn.com/btns/boton_carro_de_compras_epayco6.png'>
                                     </script>

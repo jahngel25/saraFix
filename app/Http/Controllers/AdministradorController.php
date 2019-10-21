@@ -13,6 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Mail;
 use Alert;
+use Illuminate\Support\Facades\Response;
 
 class AdministradorController extends Controller
 {
@@ -96,7 +97,19 @@ class AdministradorController extends Controller
 
     public function infoUser($id)
     {
-        $dataUser = User::query()->select(DB::raw('informacion_adicional.img_foto, users.name, users.email, informacion_adicional.identificacion, informacion_adicional.fecha_nacimiento'))
+        $dataUser = User::query()->select(DB::raw('informacion_adicional.img_foto,
+                                                    users.name, 
+                                                    users.email, 
+                                                    informacion_adicional.identificacion, 
+                                                    informacion_adicional.fecha_nacimiento, 
+                                                    informacion_adicional.direccion, 
+                                                    informacion_adicional.transporte, 
+                                                    informacion_adicional.documento_doc,  
+                                                    informacion_adicional.certificado_doc, 
+                                                    informacion_adicional.bachiller_doc, 
+                                                    informacion_adicional.eps_doc, 
+                                                    informacion_adicional.experiencia, 
+                                                    informacion_adicional.perfil'))
                              ->join('informacion_adicional', 'informacion_adicional.id_user','=','users.id')
                              ->where('users.id',$id)
                              ->first()
@@ -109,5 +122,16 @@ class AdministradorController extends Controller
         }
 
         return $data;
+    }
+
+    public function getDownload($name)
+    {
+        $file= public_path(). "/uploads/".$name;
+
+        $headers = array(
+            'Content-Type: application/pdf',
+        );
+
+        return Response::download($file, $name, $headers);
     }
 }

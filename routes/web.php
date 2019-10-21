@@ -27,7 +27,7 @@ Route::get('/servicios/{id}', 'PublicController@traerServicios')->name('servicio
 Route::get('/contactenos', 'PublicController@indexContactenos')->name('contactenos');
 Route::post('/crearContactenos', 'PublicController@createContactenos')->name('crearContactenos');
 Route::post('/crearCotizacion', 'PublicController@createCotizacion')->name('crearCotizacion');
-Route::get('/ordenServicio/{id}/{guid}/{id_area}', 'ControllerOrdenServicio@contratar')->name('ordenServicio');
+Route::get('/ordenServicio/{id}/{guid}/{id_area}', 'ControllerOrdenServicio@contratar')->name('informacionAdicional');
 Route::post('crearOrdenServicio','ControllerOrdenServicio@crear')->name('crearOrdenServicio');
 Route::get('deleteOrdenServicio/{key}/{id}/{guid}/{id_area}','ControllerOrdenServicio@delete')->name('deleteOrdenServicio');
 
@@ -57,6 +57,8 @@ Route::group(['middleware' => 'Administrador','prefix' => 'Administrador'], func
     Route::post('/emailContactenos','AdministradorController@emailContactenos')->name('emailContactenos');
     Route::post('/emailCotizacion','AdministradorController@emailCotizacion')->name('emailCotizacion');
     Route::get('/cotizaciones','AdministradorController@indexCotizaciones')->name('cotizacionesAdmin');
+    Route::get('/download/{name}', 'AdministradorController@getDownload')->name('download');
+
 });
 
 Route::group(['middleware' => 'Cliente','prefix' => 'Cliente'], function () {
@@ -65,6 +67,10 @@ Route::group(['middleware' => 'Cliente','prefix' => 'Cliente'], function () {
     Route::get('infoServicios/{id}','ClienteController@informacionServicio')->name('infoServi');
     Route::post('calificar', 'ClienteController@calificar')->name('calificarTodero');
     Route::get('/infoUser/{id}','ClienteController@infoUser')->name('infoUserAsig');
+    Route::get('/acepted/{id}', 'ClienteController@Acepted')->name('acepted');
+    Route::get('/rejected/{id}', 'ClienteController@Rejected')->name('rejected');
+    Route::get('/pending/{id}', 'ClienteController@Pending')->name('pending');
+
 });
 
 Route::group(['middleware' => 'Todero','prefix' => 'Todero'], function () {
@@ -72,13 +78,17 @@ Route::group(['middleware' => 'Todero','prefix' => 'Todero'], function () {
     Route::get('/home', 'ToderoController@index')->name('homeTodero');
     Route::post('/aceptarServicio','ControllerRelationOrdenUser@create')->name('aceptarServicio');
     Route::post('/informacionAdicional','ToderoController@createInformacionAdicional')->name('informacionAdicional');
+    Route::post('/informacionAdicionalEdit','ToderoController@editInformacionAdicional')->name('informacionAdicionalEdit');
     Route::get('/traerDepartamento/{id}','ToderoController@traerDepartamento')->name('traerDepartamento');
     Route::get('/traerCiudad/{id}','ToderoController@traerCiudad')->name('traerCiudad');
     Route::get('infoServicios/{id}','ToderoController@informacionServicio')->name('infoServicios');
     Route::get('servicio/realizados','ToderoController@trabajosRealizados')->name('realizados');
     Route::get('servicio/proceso','ToderoController@trabajosProceso')->name('proceso');
-    Route::post('servicio/terminar','ToderoController@terminarTrabajo')->name('terminar');
+    Route::post('servicio/terminar','ControllerRelationOrdenUser@terminarTrabajo')->name('terminar');
     Route::post('calificar', 'ToderoController@calificar')->name('calificarCliente');
+    Route::get('ingresos', 'ToderoController@ingresos')->name('ingresos');
+    Route::get('/download/{name}', 'AdministradorController@getDownload')->name('download');
+
 });
 
 

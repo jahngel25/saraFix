@@ -64,11 +64,15 @@
         </div>
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h2 class="section-heading">No hay trabajo pequeño que no hagamos</h2>
-                <h3 id="servicios" class="section-subheading text-muted">"Precios económicos y sin sorpresas”</h3>
+
             </div>
         </div>
         <div  class="row" id="contenedorAreas" style="margin-right: -15px !important;margin-left: -15px !important;">
+            <center>
+                <h2 class="section-heading">No hay trabajo pequeño que no hagamos</h2>
+                <h3 id="servicios" class="section-subheading text-muted">"Precios económicos y sin sorpresas”</h3>
+                <h5 id="servicios" class="section-subheading text-muted">Click en cada imagen para ver mas</h5>
+            </center>
 
         </div>
         <div class="row">
@@ -185,6 +189,11 @@
         }
     );
     wow.init();
+
+    $(window).ready(function(){
+        var pathname = window.location.pathname;
+        window.location.href = pathname+'#contenedorAreas';
+    });
 
     $(document).ready(function(){
         $.ajax({

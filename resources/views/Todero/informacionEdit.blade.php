@@ -1,4 +1,4 @@
-<form action="{{route('informacionAdicional')}}" method="post" enctype="multipart/form-data">
+<form action="{{route('informacionAdicionalEdit')}}" method="post" enctype="multipart/form-data">
     {{ csrf_field() }}
     <div class="row" style="padding: 3%">
         <div class="alert alert-warning" role="alert">
@@ -46,7 +46,7 @@
                 <label for="identificacion" class="col-md-12 control-label">Numero de identificación</label>
 
                 <div class="col-md-12">
-                    <input id="identificacion" type="number" class="stylesInput" name="identificacion" value="{{ old('identificacion') }}" required autofocus>
+                    <input id="identificacion" type="number" class="stylesInput" name="identificacion" value="{{$dataTodero->identificacion}}" required autofocus>
                     @if ($errors->has('identificacion'))
                         <span class="help-block">
                             <strong>{{ $errors->first('identificacion') }}</strong>
@@ -59,7 +59,7 @@
                 <div class="form-group">
                     <div class="col-lg-12 text-center">
                         <div class='input-group date' id='datetimepickerInfo'>
-                            <input type='text' name="fecha_nacimiento" id="fecha_nacimiento" class="form-control" style="border-color: #c0c0c0;"/>
+                            <input type='text' name="fecha_nacimiento" id="fecha_nacimiento" value="{{$dataTodero->fecha_nacimiento}}" class="form-control" style="border-color: #c0c0c0;"/>
                             <span class="input-group-addon">
                                 <span class="glyphicon glyphicon-calendar"></span>
                             </span>
@@ -77,7 +77,7 @@
                 <label for="direccion" class="col-md-12 control-label">Dirección</label>
 
                 <div class="col-md-12">
-                    <input id="direccion" type="text" class="stylesInput" name="direccion" value="{{ old('direccion') }}" required autofocus>
+                    <input id="direccion" type="text" class="stylesInput" name="direccion" value="{{$dataTodero->direccion}}" required autofocus>
                     @if ($errors->has('direccion'))
                         <span class="help-block">
                             <strong>{{ $errors->first('direccion') }}</strong>
@@ -136,7 +136,7 @@
                 <label for="transporte" class="col-md-12 control-label">¿Que medio de transporte utiliza?</label>
 
                 <div class="col-md-12">
-                    <input id="transporte" type="text" class="stylesInput" name="transporte" value="{{ old('transporte') }}" required autofocus>
+                    <input id="transporte" type="text" class="stylesInput" name="transporte" value="{{$dataTodero->transporte}}" required autofocus>
                     @if ($errors->has('transporte'))
                         <span class="help-block">
                             <strong>{{ $errors->first('transporte') }}</strong>
@@ -148,7 +148,7 @@
                 <label for="experiencia" class="col-md-12 control-label">Experiencia en años</label>
 
                 <div class="col-md-12">
-                    <input id="experiencia" type="number" class="stylesInput" name="experiencia" value="{{ old('experiencia') }}" required autofocus>
+                    <input id="experiencia" type="number" class="stylesInput" name="experiencia" value="{{$dataTodero->experiencia}}" required autofocus>
                     @if ($errors->has('experiencia'))
                         <span class="help-block">
                             <strong>{{ $errors->first('experiencia') }}</strong>
@@ -160,7 +160,7 @@
                 <label for="perfil" class="col-md-12 control-label">Perfil profesional</label>
 
                 <div class="col-md-12">
-                    <textarea class="stylesInput" rows="5" id="perfil" name="perfil" style="height: 100% !important;"></textarea>
+                    <textarea class="stylesInput" rows="5" id="perfil" name="perfil" value="{{$dataTodero->perfil}}" style="height: 100% !important;">{{$dataTodero->perfil}}</textarea>
                     @if ($errors->has('perfil'))
                         <span class="help-block">
                             <strong>{{ $errors->first('perfil') }}</strong>
@@ -177,7 +177,12 @@
                                 <i class="fa fa-hand-o-up fa-stack-2x"></i> <input type="file" id="documento_doc" name="documento_doc" class="stylesInput">
                             </span>
                         </span>
-                        <input type="text" class="form-control styleImgInput" value="{{ old('documento_doc') }}" readonly>
+                        <input type="text" class="form-control styleImgInput" readonly>
+                    </div>
+                    <div align="center">
+                        <a href="{{route('download',$dataTodero->documento_doc)}}" target="_blank">
+                            <i class="fa fa-download fa-2x iconColor" aria-hidden="true"></i>
+                        </a>
                     </div>
                     @if ($errors->has('documento_doc'))
                         <span class="help-block">
@@ -195,7 +200,12 @@
                                 <i class="fa fa-hand-o-up fa-stack-2x"></i> <input type="file" id="certificado_doc" name="certificado_doc" class="stylesInput">
                             </span>
                         </span>
-                        <input type="text" class="form-control styleImgInput" value="{{ old('certificado_doc') }}" readonly>
+                        <input type="text" class="form-control styleImgInput" readonly>
+                    </div>
+                    <div align="center">
+                        <a href="{{route('download',$dataTodero->certificado_doc)}}" target="_blank">
+                            <i class="fa fa-download fa-2x iconColor" aria-hidden="true"></i>
+                        </a>
                     </div>
                     @if ($errors->has('certificado_doc'))
                         <span class="help-block">
@@ -207,13 +217,18 @@
             <div class="form-group{{ $errors->has('eps_doc') ? ' has-error' : '' }}">
                 <label for="eps_doc" class="col-md-12 control-label">Certificado EPS</label>
                 <div class="col-md-12" style="margin-bottom: 4% !important;">
-                <div class="input-group">
+                    <div class="input-group">
                         <span class="input-group-btn">
                             <span class="btn btn-default btn-file">
                                 <i class="fa fa-hand-o-up fa-stack-2x"></i> <input type="file" id="eps_doc" name="eps_doc" class="stylesInput">
                             </span>
                         </span>
-                        <input type="text" class="form-control styleImgInput" value="{{ old('eps_doc') }}" readonly>
+                        <input type="text" class="form-control styleImgInput" readonly>
+                    </div>
+                    <div align="center">
+                        <a href="{{route('download',$dataTodero->eps_doc)}}" target="_blank">
+                            <i class="fa fa-download fa-2x iconColor" aria-hidden="true"></i>
+                        </a>
                     </div>
                     @if ($errors->has('eps_doc'))
                         <span class="help-block">
@@ -231,7 +246,12 @@
                                 <i class="fa fa-hand-o-up fa-stack-2x"></i> <input type="file" id="bachiller_doc" name="bachiller_doc" class="stylesInput">
                             </span>
                         </span>
-                        <input type="text" class="form-control styleImgInput" value="{{ old('bachiller_doc') }}" readonly>
+                        <input type="text" class="form-control styleImgInput" readonly>
+                    </div>
+                    <div align="center">
+                        <a href="{{route('download',$dataTodero->bachiller_doc)}}" target="_blank">
+                            <i class="fa fa-download fa-2x iconColor" aria-hidden="true"></i>
+                        </a>
                     </div>
                     @if ($errors->has('bachiller_doc'))
                         <span class="help-block">
@@ -242,8 +262,18 @@
             </div>
         </div>
         <div class="col-md-12">
+            <h3 align="center">Seleccione las area en la cuales tiene experiencia</h3>
+            <br>
+            @foreach($modelAreas as $value)
+                <div class="col-md-4">
+                    <input type="checkbox" name="id_area[]" id="{{$value->id}}" value="{{$value->id}}">  {{$value->name}}<br>
+                </div>
+            @endforeach
+        </div>
+        <div class="col-md-12">
             <div class="form-group">
                 <div class="col-md-6 col-md-offset-5">
+                    <input type="hidden" value="{{$dataTodero->id}}" name="id" id="id">
                     <button type="submit" class="btn btn-warning colorBtn">
                         Registrar
                     </button>

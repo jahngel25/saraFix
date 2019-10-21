@@ -82,7 +82,6 @@
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu" role="menu">
-                                    <li><a href="#">Editar Perfil</a></li>
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();
@@ -113,6 +112,7 @@
     <script type="text/javascript" src="{{asset('js/bootstrap-datetimepicker.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/sweetalert.min.js')}}"></script>
     <script type="text/javascript" src="{{asset('js/star-rating.min.js')}}"></script>
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     @include('sweet::alert')
     @yield('contentScript')
     <script>

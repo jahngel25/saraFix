@@ -108,7 +108,7 @@
 <body>
 <div class="container" style="margin-top: 3%">
     <div class="row">
-        <div class="col-sm-12">
+        <div class="col-md-12">
             <div class="panel panel-success">
                 <div class="panel-heading clickable">
                     <h3 class="panel-title text-center">
@@ -130,123 +130,150 @@
         </div>
     </div>
     <div class="row">
-        <div class="col-lg-12 text-center">
+        <div class="col-md-12 text-center">
             <h5>Llena los campos para procesar tu solicitud</h5>
         </div>
     </div>
     <br><br>
-    <div class="borde_marco" >
+    <div class="row">
         <form action="{{route('crearOrdenServicio')}}" enctype="multipart/form-data" method="post" id="ordenServicio">
             {{ csrf_field() }}
-            <div class="col-sm-5">
+            <div class="col-md-5">
                 <div class="panel panel-default" style="border-color: #c3c3c3;">
                     <div class="panel-body form-horizontal payment-form">
-                        <div class="form-group">
-                            <label for="status"  class="col-sm-3 control-label">Email:</label>
-                            <div class="col-sm-9">
-                                <input type="email" style="border-color: #c0c0c0" placeholder="Email de contacto:" class="form-control" name="email" id="email"/>
+                        <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
+                            <label for="status" class="col-md-3 control-label">Email:</label>
+                            <div class="col-md-9">
+                                <input type="email" style="border-color: #c0c0c0" value="{{ old('email') }}" placeholder="Email de contacto:" class="form-control" name="email" id="email"/>
+                                @if ($errors->has('email'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('email') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="concept" class="col-sm-3 control-label">Nombre: </label>
-                            <div class="col-sm-9">
-                                <input type="text" style="border-color: #c0c0c0" placeholder="Nombre quien recibe:"  class="form-control" name="name" id="name"/>
+                        <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
+                            <label for="concept" class="col-md-3 control-label">Nombre: </label>
+                            <div class="col-md-9">
+                                <input type="text" style="border-color: #c0c0c0" value="{{ old('name') }}" placeholder="Nombre quien recibe:"  class="form-control" name="name" id="name"/>
+                                @if ($errors->has('name'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('name') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="description" class="col-sm-3 control-label">Dirección:</label>
-                            <div class="col-sm-9">
-                                <input type="text" style="border-color: #c0c0c0" placeholder="Dirección indicaciones Ej.casa o apto: "  class="form-control" name="address" id="address"/>
+                        <div class="form-group {{ $errors->has('address') ? ' has-error' : '' }}">
+                            <label for="description" class="col-md-3 control-label">Dirección:</label>
+                            <div class="col-md-9">
+                                <input type="text" style="border-color: #c0c0c0" value="{{ old('address') }}" placeholder="Dirección indicaciones Ej.casa o apto: "  class="form-control" name="address" id="address"/>
+                                @if ($errors->has('address'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('address') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="amount" class="col-sm-3 control-label">Teléfono:</label>
-                            <div class="col-sm-9">
-                                <input type="number" style="border-color: #c0c0c0" placeholder="Teléfono de contacto:" class="form-control" name="telefono" id="telefono"/>
+                        <div class="form-group {{ $errors->has('telefono') ? ' has-error' : '' }}">
+                            <label for="amount" class="col-md-3 control-label">Teléfono:</label>
+                            <div class="col-md-9">
+                                <input type="number" style="border-color: #c0c0c0" value="{{ old('telefono') }}" placeholder="Teléfono de contacto:" class="form-control" name="telefono" id="telefono"/>
+                                @if ($errors->has('telefono'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('telefono') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
-                        <div class="form-group">
-                            <label for="date" class="col-sm-3 control-label">Instrucciones</label>
-                            <div class="col-sm-9">
-                                <input type="text" style="border-color: #c0c0c0" placeholder="Comentarios, detalles adicionales." class="form-control" name="description"/>
+                        <div class="form-group {{ $errors->has('description') ? ' has-error' : '' }}">
+                            <label for="date" class="col-md-3 control-label">Instrucciones</label>
+                            <div class="col-md-9">
+                                <input type="text" style="border-color: #c0c0c0" value="{{ old('description') }}" placeholder="Comentarios, detalles adicionales." class="form-control" name="description"/>
+                                @if ($errors->has('description'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('description') }}</strong>
+                                    </span>
+                                @endif
                             </div>
                         </div>
-                        <div class="form-group">
-                            <div class="col-lg-12 text-center">
+                        <div class="form-group {{ $errors->has('date') ? ' has-error' : '' }}">
+                            <div class="col-md-12 text-center">
                                 <label>Cuando quieres recibir tu servicio?</label>
                                 <div class='input-group date' id='datetimepicker6' style="margin-left: 3%">
-                                    <input type='text' name="date" id="date" class="form-control" style="border-color: #c0c0c0;"/>
+                                    <input type='text' name="date" id="date" value="{{ old('date') }}" class="form-control" style="border-color: #c0c0c0;"/>
                                     <span class="input-group-addon">
                                         <span class="glyphicon glyphicon-calendar"></span>
                                     </span>
                                 </div>
+                                @if ($errors->has('date'))
+                                    <span class="help-block">
+                                            <strong>{{ $errors->first('date') }}</strong>
+                                        </span>
+                                @endif
                             </div>
-                            <br />
+                            <br/>
                         </div>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-7"  >
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="panel panel-info" style="border-color: #c3c3c3;">
-                            <div class="panel-heading">
-                                <div class="panel-title">
-                                    <div class="row">
-                                        <div class="col-xs-5">
-                                            <h5><i class="fa fa-shopping-cart" aria-hidden="true"></i> Shopping Cart</h5>
-                                        </div>
-                                        <div class="col-xs-7">
-                                            <a href="{{route('servicios', $id_area)}}" class="btn btn-default btn-sm btn-block">
-                                                <i class="fa fa-reply" aria-hidden="true"></i> Necesitas mas servicios?
-                                            </a>
-                                        </div>
+            <div class="col-md-7">
+                <div class="panel panel-info" style="border-color: #c3c3c3;">
+                    <div class="panel-heading">
+                        <div class="panel-title">
+                            <div class="row">
+                                <div class="col-md-5">
+                                    <h5><i class="fa fa-shopping-cart" aria-hidden="true"></i> Shopping Cart</h5>
+                                </div>
+                                <div class="col-md-7">
+                                    <a href="{{route('servicios', $id_area)}}" class="btn btn-default btn-sm btn-block">
+                                        <i class="fa fa-reply" aria-hidden="true"></i> Necesitas mas servicios?
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    @if($modelServicio != '')
+                        @foreach($modelServicio as $key => $value)
+                            <div class="row" style="padding: 3%" id="contenedor_{{$value['id']}}">
+                                <div class="col-md-3">
+                                    <input type="image" name="img_0" id="img_0" class="img-responsive" src="{{asset('img/'.$value['img'])}}">
+                                </div>
+                                <div class="col-md-3">
+                                    <h4 class="product-name"><strong><span id="lblText_0">{{$value['name']}}</span></strong></h4>
+                                    <h4 class="Incluye"><small><a id="lblRef_0" href="javascript:__doPostBack('lblRef_0','')">Que incluye este servicio</a></small></h4>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="col-md-6 text-right">
+                                        <h6><strong><span id="lblPrecio_0">${{$value['precio']}} Pesos</span></strong></h6>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <input type="hidden" name="servicios[]" value="{{$value['id']}}">
+                                        <a href="{{route('deleteOrdenServicio',[$key,$id,$guid,$id_area] )}}"><button type="button" class="btn btn-xs" id="eliminar">Eliminar</button></a>
                                     </div>
                                 </div>
                             </div>
-                            @if($modelServicio != '')
-                                @foreach($modelServicio as $key => $value)
-                                    <div class="row" style="padding: 3%" id="contenedor_{{$value['id']}}">
-                                        <div class="col-xs-2">
-                                            <input type="image" name="img_0" id="img_0" class="img-responsive" src="{{asset('img/'.$value['img'])}}">
-                                        </div><div class="col-xs-3">
-                                            <h4 class="product-name"><strong><span id="lblText_0">{{$value['name']}}</span></strong></h4>
-                                            <h4 class="Incluye"><small><a id="lblRef_0" href="javascript:__doPostBack('lblRef_0','')">Que incluye este servicio</a></small></h4>
-                                        </div>
-                                        <div class="col-xs-6">
-                                            <div class="col-xs-6 text-right">
-                                                <h6><strong><span id="lblPrecio_0">${{$value['precio']}} Pesos</span></strong></h6>
-                                            </div>
-                                            <div class="col-xs-3">
-                                                <input type="hidden" name="servicios[]" value="{{$value['id']}}">
-                                                <a href="{{route('deleteOrdenServicio',[$key,$id,$guid,$id_area] )}}"><button type="button" class="btn btn-xs" id="eliminar">Eliminar</button></a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                @endforeach
-                            @endif
-                            <div class="panel-body" style="padding: 6%">
-                                <div class="row">
-                                    <div class="row text-center">
-                                        <div class="col-xs-6">
-                                            <div class="input-group">
-                                                <span class="input-group-addon"><i class="fa fa-gift" aria-hidden="true"></i></span>
-                                                <input type="text" style="border-color: #c0c0c0" class="form-control" placeholder="Tienes un codigo promocional?" id="id_codigo" name="id_codigo"/>
-                                            </div>
-                                        </div>
+                        @endforeach
+                    @endif
+                    <div class="panel-body" style="padding: 6%">
+                        <div class="row">
+                            <div class="row text-center">
+                                <div class="col-md-12">
+                                    <div class="input-group">
+                                        <span class="input-group-addon"><i class="fa fa-gift" aria-hidden="true"></i></span>
+                                        <input type="text" style="border-color: #c0c0c0" class="form-control" placeholder="Tienes un codigo promocional?" id="id_codigo" name="id_codigo"/>
                                     </div>
                                 </div>
                             </div>
-                            <div class="panel-footer">
-                                <div class="row text-center">
-                                    <div class="col-xs-9">
-                                        <input type="hidden" name="total" id="total" value="{{$total}}">
-                                        <h4 class="text-right">Total ${{$total}}<strong><label Text="0" ID="lblTotalPagar" runat="server" /></strong></h4>
-                                    </div>
-                                    <div class="col-xs-3">
-                                        <input type="submit" id="btnRealizarPedidido" class="btn btn-danger" value="Solicitar Servicio">
-                                    </div>
-                                </div>
+                        </div>
+                    </div>
+                    <div class="panel-footer">
+                        <div class="row text-center">
+                            <div class="col-md-6">
+                                <input type="hidden" name="total" id="total" value="{{$total}}">
+                                <h4 class="text-right">Total ${{$total}}<strong><label Text="0" ID="lblTotalPagar" runat="server" /></strong></h4>
+                            </div>
+                            <div class="col-md-6">
+                                <input type="submit" id="btnRealizarPedidido" class="btn btn-danger" value="Solicitar Servicio">
                             </div>
                         </div>
                     </div>

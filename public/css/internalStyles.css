@@ -38,6 +38,14 @@ label {
     color: #dee047;
 }
 
+.iconColorBlack{
+    color: #000000;
+}
+
+.iconColorBlack:hover{
+    color: #dee047;
+}
+
 .textAlingCenter
 {
     text-align: center;

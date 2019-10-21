@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\area;
 use App\calificarServicio;
 use App\Ciudad;
 use App\Departamento;
 use App\informacionAdicional;
 use App\Pais;
+use App\relation_orden_user;
 use App\relation_servicio_orden;
+use App\relation_user_area;
 use App\relationTypeUsers;
 use App\servicioOrden;
 use App\servicios;
@@ -25,11 +28,21 @@ class ToderoController extends Controller
     {
         if (statusUser() == 1)
         {
+            $modelAreaUser = relation_user_area::query()->select('id_area')
+                                                        ->where('id_user', Auth::user()->id)
+                                                        ->pluck('id_area')->toArray();
+
+
             $dataOrdenServicio = servicioOrden::query()
                 ->select(DB::raw('orden_servicio.id, orden_servicio.date, orden_servicio.description, orden_servicio.total, users.name'))
                 ->join('users', 'users.id', '=', 'orden_servicio.id_user')
-                ->where('orden_servicio.status', '=', 1)->get();
-
+                ->join('relation_servicio_orden', 'orden_servicio.id','=', 'relation_servicio_orden.id_orden')
+                ->join('servicio', 'relation_servicio_orden.id_servicio', '=', 'servicio.id')
+                ->join('relation_user_area', 'relation_user_area.id_user', '=', DB::raw(Auth::user()->id))
+                ->where('orden_servicio.status', '=', 2)
+                ->whereIn('servicio.id_area', $modelAreaUser)
+                ->groupBy('orden_servicio.id','orden_servicio.date', 'orden_servicio.description', 'orden_servicio.total', 'users.name')
+                ->get();
 
             return view('Todero.home', compact('dataOrdenServicio'));
         }
@@ -46,16 +59,26 @@ class ToderoController extends Controller
         $dataPais = Pais::all();
         $dataTipoDocumento = tipoDocumento::all();
         $estado = relationTypeUsers::where('id_user', Auth::user()->id)->first();
+        $modelAreas = area::query()->select('id', 'name')->get();
         if ($estado->status == 3)
         {
-            $dataTodero = informacionAdicional::query()->where('id_user', '=', Auth::user()->id)->first();
+            $dataTodero = informacionAdicional::query()
+                                                ->select(DB::raw('informacion_adicional.*, informacion_adicional.id, departamento.id_pais, ciudad.id_departamento'))
+                                                ->join('ciudad', 'informacion_adicional.id_ciudad', '=', 'ciudad.id')
+                                                ->join('departamento', 'ciudad.id_departamento', '=', 'departamento.id')
+                                                ->join('pais', 'departamento.id_pais', '=', 'pais.id')
+                                                ->where('id_user', '=', Auth::user()->id)
+                                                ->first();
+
+            $dataAreas = relation_user_area::query()->select('id_area')->where('id_user', Auth::user()->id)->get();
         }
         else
         {
             $dataTodero = "";
+            $dataAreas = "";
         }
 
-        return view('Todero.information', compact('dataPais', 'dataTipoDocumento', 'dataTodero'));
+        return view('Todero.information', compact('dataPais', 'dataTipoDocumento', 'dataTodero', 'modelAreas', 'dataAreas'));
     }
 
     public function createInformacionAdicional(Request $request)
@@ -73,6 +96,14 @@ class ToderoController extends Controller
                 'id_tipo_documento' => $request['id_tipo_documento'],
                 'id_ciudad' => $request['id_ciudad']
             ]);
+
+            foreach ($request['id_area'] as $value)
+            {
+                   $insertFielArea = relation_user_area::create([
+                       'id_user' => Auth::user()->id,
+                       'id_area' => $value
+                   ]);
+            }
 
             if ($request->file('img_foto'))
             {
@@ -131,15 +162,6 @@ class ToderoController extends Controller
             }
 
             $modelInfo = informacionAdicional::find($insertField->id);
-            $modelInfo->identificacion = $request['identificacion'];
-            $modelInfo->fecha_nacimiento = $request['fecha_nacimiento'];
-            $modelInfo->direccion = $request['direccion'];
-            $modelInfo->transporte = $request['transporte'];
-            $modelInfo->experiencia = $request['experiencia'];
-            $modelInfo->perfil = $request['perfil'];
-            $modelInfo->id_user = Auth::user()->id;
-            $modelInfo->id_tipo_documento = $request['id_tipo_documento'];
-            $modelInfo->id_ciudad = $request['id_ciudad'];
             $modelInfo->img_foto = $nombreFoto;
             $modelInfo->documento_doc = $nombreDocumento;
             $modelInfo->certificado_doc = $nombreCertificado;
@@ -193,7 +215,7 @@ class ToderoController extends Controller
                 $join->on('orden_servicio.id', '=', 'relation_orden_user.id_orden');
                 $join->on('relation_orden_user.id_user', '=', DB::raw(Auth::user()->id));
             })
-            ->where('orden_servicio.status', '=', 2)->get();
+            ->where('orden_servicio.status', '=', 3)->get();
 
 
         return view('Todero.proceso', compact('dataOrdenServicio'));
@@ -212,29 +234,10 @@ class ToderoController extends Controller
                 $join->on('orden_servicio.id', '=', 'relation_orden_user.id_orden');
                 $join->on('relation_orden_user.id_user', '=', DB::raw(Auth::user()->id));
             })
-            ->where('orden_servicio.status', '=', 3)->get();
+            ->where('orden_servicio.status', '=', 4)->get();
 
 
         return view('Todero.realizados', compact('dataOrdenServicio'));
-    }
-
-    public function terminarTrabajo(Request $request)
-    {
-        try
-        {
-            $modelOrden = servicioOrden::find($request['id_orden']);
-            $modelOrden->status = 3;
-            $modelOrden->save();
-
-            Alert::success('El trabajo a sido terminado', 'Hecho');
-        }
-        catch (\Exception $e)
-        {
-            Alert::error('Ocurrio un incoveniente durante el proceso','Opps');
-        }
-
-
-        return redirect(route('realizados'));
     }
 
     public function calificar(Request $request)
@@ -257,6 +260,127 @@ class ToderoController extends Controller
 
         return redirect(route('realizados'));
 
+    }
+
+    public function ingresos()
+    {
+        $modelTodero = relation_orden_user::query()
+                                            ->join('orden_servicio', 'relation_orden_user.id_orden', '=', 'orden_servicio.id')
+                                            ->where('relation_orden_user.id_user', '=', Auth::user()->id)
+                                            ->where('orden_servicio.status', '=',4)
+                                            ->get();
+
+        $ingresos =  0;
+
+        foreach ($modelTodero as $value)
+        {
+            $ingresos = $ingresos + $value->total;
+        }
+
+        $descuentos = $ingresos*0.098;0.00;
+
+        $ingresos = $ingresos-$descuentos;
+
+        return view('Todero.ingresos', compact('ingresos'));
+    }
+
+    public function editInformacionAdicional(Request $request)
+    {
+        try
+        {
+            $modelInfoAdicinal = informacionAdicional::query()->where('id', '=', $request['id'])->first();
+            $updateField = informacionAdicional::find($request['id']);
+            $updateField->identificacion = $request['identificacion'];
+            $updateField->fecha_nacimiento = $request['fecha_nacimiento'];
+            $updateField->direccion = $request['direccion'];
+            $updateField->transporte = $request['transporte'];
+            $updateField->experiencia = $request['experiencia'];
+            $updateField->perfil = $request['perfil'];
+            $updateField->id_tipo_documento = $request['id_tipo_documento'];
+            $updateField->id_ciudad = $request['id_ciudad'];
+            $updateField->save();
+
+            foreach ($request['id_area'] as $value)
+            {
+                $insertFielArea = relation_user_area::create([
+                    'id_user' => Auth::user()->id,
+                    'id_area' => $value
+                ]);
+            }
+
+            if ($request->file('img_foto'))
+            {
+                $fileFoto = $request->file('img_foto');
+                $nombreFoto = $request['id'].'_foto_'.$fileFoto->getClientOriginalName();
+                Storage::disk('local')->put($nombreFoto,  \File::get($fileFoto));
+
+            }
+            else{
+                $nombreFoto = $modelInfoAdicinal->img_foto;
+            }
+
+            if ($request->file('documento_doc'))
+            {
+                $fileDocumento = $request->file('documento_doc');
+                $nombreDocumento = $request['id'].'_documento_'.$fileDocumento->getClientOriginalName();
+                Storage::disk('local')->put($nombreDocumento,  \File::get($fileDocumento));
+
+
+            }
+            else{
+                $nombreDocumento = $modelInfoAdicinal->documento_doc;
+            }
+
+            if ($request->file('documento_doc'))
+            {
+                $fileCertificado = $request->file('certificado_doc');
+                $nombreCertificado = $request['id'].'_certificado_'.$fileCertificado->getClientOriginalName();
+                Storage::disk('local')->put($nombreCertificado,  \File::get($fileCertificado));
+
+            }
+            else{
+                $nombreCertificado = $modelInfoAdicinal->documento_doc;
+            }
+
+            if ($request->file('bachiller_doc'))
+            {
+                $fileBachiller = $request->file('bachiller_doc');
+                $nombreBachiller = $request['id'].'_bachiller_'.$fileBachiller->getClientOriginalName();
+                Storage::disk('local')->put($nombreBachiller,  \File::get($fileBachiller));
+
+            }
+            else{
+                $nombreBachiller = $modelInfoAdicinal->bachiller_doc;
+            }
+
+            if ($request->file('eps_doc'))
+            {
+                $fileEps = $request->file('eps_doc');
+                $nombreEps = $request['id'].'_'.$fileEps->getClientOriginalName();
+                Storage::disk('local')->put($nombreEps,  \File::get($fileEps));
+
+            }
+            else{
+                $nombreEps = $modelInfoAdicinal->eps_doc;
+            }
+
+            $modelInfo = informacionAdicional::find($request['id']);
+            $modelInfo->img_foto = $nombreFoto;
+            $modelInfo->documento_doc = $nombreDocumento;
+            $modelInfo->certificado_doc = $nombreCertificado;
+            $modelInfo->bachiller_doc = $nombreBachiller;
+            $modelInfo->eps_doc = $nombreEps;
+            $modelInfo->save();
+
+            Alert::success('La información editada','Registro terminado')->persistent("Cerrar");
+
+        }catch (\Exception $e)
+        {
+            dd($e);
+            Alert::error('Ocurrio un incoveniente durante el proceso','Opps');
+        }
+
+        return redirect()->route('homeTodero');
     }
 
 }

@@ -239,6 +239,15 @@
             </div>
         </div>
         <div class="col-md-12">
+            <h3 align="center">Seleccione las area en la cuales tiene experiencia</h3>
+            <br>
+            @foreach($modelAreas as $value)
+                <div class="col-md-4">
+                    <input type="checkbox" name="id_area[]" id="{{$value->id}}" value="{{$value->id}}">  {{$value->name}}<br>
+                </div>
+            @endforeach
+        </div>
+        <div class="col-md-12" style="margin-top: 5%">
             <div class="form-group">
                 <div class="col-md-6 col-md-offset-5">
                     <button type="submit" class="btn btn-warning colorBtn">

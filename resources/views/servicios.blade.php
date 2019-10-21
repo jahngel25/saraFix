@@ -61,7 +61,7 @@
             </ul>
 
             <!-- Right Side Of Navbar -->
-            <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right" style="text-align: center;">
                 <!-- Authentication Links -->
                 @if (Auth::guest())
                     <li><a href="{{ url('/') }}">Inicio</a></li>
@@ -114,14 +114,13 @@
         </div>
         <div class="row text-center" style="margin-right: -15px !important;margin-left: -15px !important;">
             @foreach($dataServicio as $value)
-                <div class="col-md-3 col-sm-6 hero-feature">
+                <div class="col-md-3 hero-feature">
                     <div class="thumbnail">
                         <div>
                             <img src="{{asset('img/'.$value->img)}}" class="img-responsive" id="imgBtn_43" />
                             <div class="caption">
                                 <h4>{{$value->name}}</h4>
                                 <h4 style="color:darkred;">${{$value->precio}} Pesos</h4>
-                                <button  class="btn btn-default"> Incluye </button>
                                 <a href="{{route('ordenServicio', [$value->id, uniqid(), $dataArea->id])}}"><button  class="btn btn-info">Contratar</button></a>
                             </div>
                         </div>

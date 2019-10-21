@@ -138,7 +138,7 @@
     <script>
         function infoServicios(id) {
             $('#infoServicios').html('');
-            var stringDiv = '{{route('infoUserAsig', ['parameter'])}}';
+            var stringDiv = '{{route('infoServi', ['parameter'])}}';
             var result = stringDiv.replace("parameter", id);
 
             $.ajax({

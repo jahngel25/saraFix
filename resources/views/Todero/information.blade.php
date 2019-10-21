@@ -57,6 +57,13 @@
 @endsection
 @section('contentScript')
     <script>
+        $(document).ready( function() {
+            @if($dataAreas != "")
+                @foreach($dataAreas as $value)
+                        $("#{{$value->id_area}}").attr("checked", true);
+                @endforeach
+            @endif
+        });
 
         $('#datetimepickerInfo').datetimepicker({
             format: "yyyy-mm-dd",

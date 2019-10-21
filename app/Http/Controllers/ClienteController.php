@@ -81,14 +81,22 @@ class ClienteController extends Controller
 
     public function infoUser($id)
     {
-        $dataUser = User::query()->select(DB::raw('informacion_adicional.img_foto, users.name, users.email, informacion_adicional.identificacion, informacion_adicional.fecha_nacimiento'))
+        $dataUser = User::query()->select(DB::raw('informacion_adicional.img_foto,
+                                                    users.name, 
+                                                    users.email, 
+                                                    informacion_adicional.identificacion, 
+                                                    informacion_adicional.fecha_nacimiento, 
+                                                    informacion_adicional.direccion, 
+                                                    informacion_adicional.transporte,
+                                                    informacion_adicional.experiencia, 
+                                                    informacion_adicional.perfil'))
             ->join('informacion_adicional', 'informacion_adicional.id_user','=','users.id')
             ->where('users.id',$id)
             ->first()
             ->toArray();
 
         $ranking = relation_orden_user::query()->join('calificacion','calificacion.id_orden','=','relation_orden_user.id_orden')
-                                            ->where('id_user', '=', $id)->get();
+                                               ->where('id_user', '=', $id)->get();
         $data = [];
         foreach ($dataUser as $key => $value)
         {
@@ -102,9 +110,47 @@ class ClienteController extends Controller
             $total = $value->puntaje + $total;
             $count++;
         }
-        $rankingFinal = $total/$count;
+
+        if ($total == 0)
+        {
+            $rankingFinal = 5;
+        }
+        else{
+            $rankingFinal = $total/$count;
+        }
+
         $data['ranking'] = round($rankingFinal);
 
         return $data;
+    }
+
+    public function Acepted($id)
+    {
+        try
+        {
+            $modelOrden = servicioOrden::find($id);
+            $modelOrden->status = 2;
+            $modelOrden->save();
+
+            Alert::success('El pago se realizo', 'Hecho');
+        }
+        catch (\Exception $e)
+        {
+            Alert::error('Ocurrio un incoveniente durante el proceso','Opps');
+        }
+
+        return redirect(route('homeCliente'));
+    }
+
+    public function Rejected($id)
+    {
+        Alert::error('El pago no se realizo', 'Error');
+        return redirect(route('homeCliente'));
+    }
+
+    public function Pending($id)
+    {
+        Alert::info('El pago esta pendiente', 'Atencion');
+        return redirect(route('homeCliente'));
     }
 }

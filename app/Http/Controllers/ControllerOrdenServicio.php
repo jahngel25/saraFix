@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Cookie as CookieAlias;
 use Alert;
+use Illuminate\Support\Facades\Validator;
 
 class ControllerOrdenServicio extends Controller
 {
@@ -75,6 +76,21 @@ class ControllerOrdenServicio extends Controller
     public function crear(Request $request)
     {
         try{
+
+            $validator = Validator::make($request->all(), [
+                'description' => 'required',
+                'name' => 'required',
+                'email' => 'required',
+                'address' => 'required',
+                'telefono' => 'required',
+                'date' => 'required'
+            ]);
+
+            if ($validator->fails()) {
+                return redirect(route('ordenServicio', ['12', '5da8e4cf941f9', '2']))
+                    ->withErrors($validator)
+                    ->withInput();
+            }
 
             $dataUser = User::query()->where('email', '=', $request['email'])->first();
             if (isset($dataUser->email))

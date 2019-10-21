@@ -53,9 +53,11 @@
                                             </a>
                                         </td>
                                         <td style="text-align: center">
-                                            <form action="{{route('updateEstado', $value->id)}}" method="GET" id="formUpdate{{$value->id}}">
-                                                <i class="fa fa-check-circle fa-2x iconColor" aria-hidden="true" id="buttonSubmit" onclick="enviarUpdate({{$value->id}})"></i>
-                                            </form>
+                                            @if($value->status != 1)
+                                                <form action="{{route('updateEstado', $value->id)}}" method="GET" id="formUpdate{{$value->id}}">
+                                                    <i class="fa fa-check-circle fa-2x iconColor" aria-hidden="true" id="buttonSubmit" onclick="enviarUpdate({{$value->id}})"></i>
+                                                </form>
+                                            @endif
                                         </td>
                                     </tr>
                                 @endforeach
@@ -113,7 +115,18 @@
                                 '    </div></div>');
 
                         }
-                        else {
+                        else if (index == 'Documento Identidad' || index == 'Certificados' || index == 'Acta  Bachiller' || index == 'Certificado EPS') {
+                            var stringRoute = '{{route('download', ['parameter'])}}';
+                            var resultRoute = stringRoute.replace("parameter", value);
+                            $('#contentUser').append('<div class="col-md-6"><div class="form-group">\n' +
+                                '        <h4 for="id_tipo_documento" class="col-md-12 control-label">'+index+'</h4>\n' +
+                                '        <div class="col-md-12">\n' +
+                                '            <a href="'+resultRoute+'" target="_blank"><i class="fa fa-download fa-2x iconColor" aria-hidden="true"></i></a>\n' +
+                                '        </div>\n' +
+                                '    </div></div>');
+
+                        }
+                        else{
                             $('#contentUser').append('<div class="col-md-6"><div class="form-group">\n' +
                                 '        <h4 for="id_tipo_documento" class="col-md-12 control-label">'+index+'</h4>\n' +
                                 '        <div class="col-md-12">\n' +

@@ -22,7 +22,7 @@ class ControllerRelationOrdenUser extends Controller
             ]);
 
             $modelOrden = servicioOrden::find($request['id_orden']);
-            $modelOrden->status = 2;
+            $modelOrden->status = 3;
             $modelOrden->save();
 
             Alert::success('El servicio a sido aceptado con exito','Hecho');
@@ -34,5 +34,24 @@ class ControllerRelationOrdenUser extends Controller
 
 
         return redirect(route('proceso'));
+    }
+
+    public function terminarTrabajo(Request $request)
+    {
+        try
+        {
+            $modelOrden = servicioOrden::find($request['id_orden']);
+            $modelOrden->status = 4;
+            $modelOrden->save();
+
+            Alert::success('El trabajo a sido terminado', 'Hecho');
+        }
+        catch (\Exception $e)
+        {
+            Alert::error('Ocurrio un incoveniente durante el proceso','Opps');
+        }
+
+
+        return redirect(route('realizados'));
     }
 }
