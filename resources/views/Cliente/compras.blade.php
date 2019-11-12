@@ -2,15 +2,30 @@
 
 @section('content')
     <div class="container" style="margin-top: 3%">
+        <div align="center">
+            <h3 align="center">Historico de compras</h3>
+            <br>
+            <div class="row">
+                <div class="col-md-4">
+                    <p>En proceso de aceptación</p>
+                    <i class="fa fa-retweet fa-2x iconColor" aria-hidden="true"></i>
+                </div>
+                <div class="col-md-4">
+                    <p>Aceptada por profesional</p>
+                    <i class="fa fa-check-circle fa-2x iconColor" aria-hidden="true"></i>
+                </div>
+                <div class="col-md-4">
+                    <p>Terminada</p>
+                    <i class="fa fa-thumbs-up fa-2x iconColor" aria-hidden="true"></i>
+                </div>
+            </div>
+        </div>
         @foreach($dataOrdenServicio as $value)
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">
                     <div class="panel panel-default">
                         <div class="row" style="padding: 3%">
-                            <div class="col-md-1 text-center">
-                                <i class="fa fa-spinner fa-2x" aria-hidden="true" style="color: #DEE047"></i>
-                            </div>
-                            <div class="col-md-1 text-center">
+                            <div class="col-md-2 text-center">
                                 <h4 class="product-name"><strong><span id="lblText_0">{{$value->description}}</span></strong></h4>
                             </div>
                             <div class="col-md-10">
@@ -32,10 +47,12 @@
                                         </a>
                                     @endif
                                     <input type="hidden" name="pago_{{$value->id}}" value="{{$value->id}}">
-                                    @if($value->status  == 3)
-                                        <i class="fa fa-check-circle fa-2x iconColor" aria-hidden="true"></i>
-                                    @elseif($value->status  == 2)
+                                    @if($value->status  == 2)
                                         <i class="fas fa-retweet fa-2x iconColor" aria-hidden="true"></i>
+                                    @elseif($value->status  == 3)
+                                        <i class="fa fa-check-circle fa-2x iconColor" aria-hidden="true"></i>
+                                    @elseif($value->status  == 4)
+                                        <i class="fas fa-thumbs-up fa-2x iconColor" aria-hidden="true"></i>
                                     @endif
                                     @if($value->calificar  != 1)
                                         <a href="" data-toggle="modal" data-target="#exampleModal2" style="text-decoration: none;" onclick="calificar({{$value->id}})">

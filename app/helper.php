@@ -35,7 +35,7 @@ function totalIngresos($id)
         $ingresos = $ingresos + $value->total;
     }
 
-    $descuentos = $ingresos*0.098;0.00;
+    $descuentos = $ingresos*0.098;
     $ingresos = $ingresos-$descuentos;
     $modelRetiros = Retiros::query()->where('status', '=', 2)
         ->where('id_user', '=', $id)->get();

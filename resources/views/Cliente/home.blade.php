@@ -7,10 +7,7 @@
             <div class="col-md-10 col-md-offset-1">
                 <div class="panel panel-default">
                     <div class="row" style="padding: 3%">
-                        <div class="col-md-1 text-center">
-                            <i class="fa fa-spinner fa-2x" aria-hidden="true" style="color: #DEE047"></i>
-                        </div>
-                        <div class="col-md-1 text-center">
+                        <div class="col-md-2 text-center">
                             <h4 class="product-name"><strong><span id="lblText_0">{{$value->description}}</span></strong></h4>
                         </div>
                         <div class="col-md-10">

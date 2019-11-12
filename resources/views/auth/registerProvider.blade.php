@@ -6,7 +6,7 @@
             <div class="panel panel-default classTransparent">
                 <div class="panel-heading classTransparent classTitlePanel">Registrese como Todero</div>
                 <div class="panel-body">
-                    <form class="form-horizontal" method="POST" action="{{ route('register') }}">
+                    <form class="form-horizontal" method="POST" action="{{ route('register') }}" id="register" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="name" class="col-md-4 control-label">Nombre</label>
@@ -79,9 +79,18 @@
 
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
-                                <button type="submit" class="btn btn-default colorBtn">
-                                    Register
-                                </button>
+                                <div class="checkbox" style="text-align: initial;">
+                                    <label>
+                                        <input type="checkbox" name="term" id="term" {{ old('term') ? 'checked' : '' }}>
+                                        <a href="{{route('downloadTer', 'TERMINOS Y CONDICIONES FIX-CONTRACT.pdf')}}">Terminos y condiciones</a>
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <div class="col-md-6 col-md-offset-4">
+                                <input type="button" class="btn btn-default colorBtn" onclick="clickButton()" value="Registrame">
                             </div>
                         </div>
 
@@ -91,4 +100,23 @@
             </div>
         </div>
     </div>
+@endsection
+@section('contentScript')
+    <script>
+        function clickButton()
+        {
+            if($('#term').prop('checked') ) {
+                $('#register').submit();
+            }
+            else
+            {
+                swal({
+                    title: "Opps!",
+                    text: "Debes aceptar terminos y condiciones",
+                    icon: "info",
+                    button: "Cerrar",
+                });
+            }
+        }
+    </script>
 @endsection

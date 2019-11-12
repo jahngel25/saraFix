@@ -27,6 +27,7 @@ Route::get('/servicios/{id}', 'PublicController@traerServicios')->name('servicio
 Route::get('/contactenos', 'PublicController@indexContactenos')->name('contactenos');
 Route::post('/crearContactenos', 'PublicController@createContactenos')->name('crearContactenos');
 Route::post('/crearCotizacion', 'PublicController@createCotizacion')->name('crearCotizacion');
+Route::get('/downloadTer/{name}', 'PublicController@getDownload')->name('downloadTer');
 Route::get('/ordenServicio/{id}/{guid}/{id_area}', 'ControllerOrdenServicio@contratar')->name('ordenServicio');
 Route::post('crearOrdenServicio','ControllerOrdenServicio@crear')->name('crearOrdenServicio');
 Route::get('deleteOrdenServicio/{key}/{id}/{guid}/{id_area}','ControllerOrdenServicio@delete')->name('deleteOrdenServicio');

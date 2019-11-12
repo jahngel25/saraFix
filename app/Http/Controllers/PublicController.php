@@ -6,6 +6,7 @@ use App\area;
 use App\contactenos;
 use App\cotizacion;
 use App\servicios;
+use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Request;
 use Alert;
 
@@ -73,5 +74,16 @@ class PublicController extends Controller
         Alert::success('Información envia, en los proximos dias recibira respuesta al correo electronico ingresado', 'Hecho')->persistent('Cerrar');
 
         return $this->traerServicios($request['id']);
+    }
+
+    public function getDownload($name)
+    {
+        $file= public_path(). "/uploads/".$name;
+
+        $headers = array(
+            'Content-Type: application/pdf',
+        );
+
+        return Response::download($file, $name, $headers);
     }
 }

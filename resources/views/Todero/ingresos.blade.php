@@ -12,12 +12,12 @@
         </div>
         <br><br>
         <div class="row">
-            <div class="col-md-6">
+            <!-- <div class="col-md-6">
                 <div id="chart_div"></div>
             </div>
             <div class="col-md-6">
                 <div id="curve_chart"></div>
-            </div>
+            </div> -->
         </div>
     </div>
     <div class="modal fade" id="exampleModal" style="background-color: transparent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

@@ -29,7 +29,7 @@ class ControllerRetiro extends Controller
                 $ingresos = $ingresos + $value->total;
             }
 
-            $descuentos = $ingresos*0.098;0.00;
+            $descuentos = $ingresos*0.098;
 
             $ingresos = $ingresos-$descuentos;
 

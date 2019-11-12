@@ -2,6 +2,8 @@
 
 @section('content')
     <div class="container" style="margin-top: 3%">
+        <h3 align="center">Trabajaos en proceso</h3>
+        <br>
         @foreach($dataOrdenServicio as $value)
             <div class="row">
                 <div class="col-md-10 col-md-offset-1">

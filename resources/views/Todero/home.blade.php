@@ -2,6 +2,8 @@
 
 @section('content')
 <div class="container" style="margin-top: 3%">
+    <h3 align="center">Trabajos para realizar aceptación</h3>
+    <br>
     @foreach($dataOrdenServicio as $value)
     <form action="{{route('aceptarServicio')}}" method="post" enctype="multipart/form-data" id="formHome">
         {{ csrf_field() }}
