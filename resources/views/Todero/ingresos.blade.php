@@ -6,7 +6,7 @@
             <div class="col-md-12" align="center">
                 <h1><i class="fas fa-search-dollar iconColor"></i>Tus ingresos son de : ${{$ingresos}} pesos</h1>
                 <br><br>
-                <a href=""><i class="fas fa-hand-holding-usd fa-4x iconColorBlack"></i></a>
+                <a href="" data-toggle="modal" data-target="#exampleModal"><i class="fas fa-hand-holding-usd fa-4x iconColorBlack"></i></a>
                 <p>Click para solicitar retiro</p>
             </div>
         </div>
@@ -17,6 +17,41 @@
             </div>
             <div class="col-md-6">
                 <div id="curve_chart"></div>
+            </div>
+        </div>
+    </div>
+    <div class="modal fade" id="exampleModal" style="background-color: transparent" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h3 class="modal-title textAlingCenter" id="exampleModalLabel">Solicitar retiro</h3>
+                </div>
+                <div class="modal-body">
+                    <form action="{{route('retiros')}}" method="POST" enctype="multipart/form-data">
+                        {{ csrf_field() }}
+                        <div class="row">
+                            <div class="form-group{{ $errors->has('cantidad') ? ' has-error' : '' }}">
+                                <label for="cantidad" class="col-md-4 control-label">Retiros</label>
+                                <div class="col-md-12">
+                                    <input type="text" class="form-control" name="cantidad" id="cantidad">
+                                    @if ($errors->has('cantidad'))
+                                        <span class="help-block">
+                                            <strong>{{ $errors->first('cantidad') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <input type="hidden" name="email" id="email">
+                            <input type="hidden" name="name" id="name">
+                        </div>
+                        <div class="modal-footer">
+                            <input type="submit" class="btn btn-primary" value="Solicitar">
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>
@@ -39,7 +74,8 @@
             var options = {
                 title: 'Company Performance',
                 hAxis: {title: 'Year',  titleTextStyle: {color: '#333'}},
-                vAxis: {minValue: 0}
+                vAxis: {minValue: 0},
+                backgroundColor: { fill:'transparent' }
             };
 
             var chart = new google.visualization.AreaChart(document.getElementById('chart_div'));

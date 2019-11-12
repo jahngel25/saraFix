@@ -121,6 +121,7 @@ class AdministradorController extends Controller
             $data[trans('formularios.'.$key)] = $value;
         }
 
+        $data['ingresos'] = totalIngresos($id);
         return $data;
     }
 

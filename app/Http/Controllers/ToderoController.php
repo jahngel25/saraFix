@@ -12,6 +12,7 @@ use App\relation_orden_user;
 use App\relation_servicio_orden;
 use App\relation_user_area;
 use App\relationTypeUsers;
+use App\Retiros;
 use App\servicioOrden;
 use App\servicios;
 use App\tipoDocumento;
@@ -56,6 +57,8 @@ class ToderoController extends Controller
 
     public function indexInformation()
     {
+        $dataDepartamento = Departamento::all();
+        $dataCiudad = Ciudad::all();
         $dataPais = Pais::all();
         $dataTipoDocumento = tipoDocumento::all();
         $estado = relationTypeUsers::where('id_user', Auth::user()->id)->first();
@@ -78,7 +81,7 @@ class ToderoController extends Controller
             $dataAreas = "";
         }
 
-        return view('Todero.information', compact('dataPais', 'dataTipoDocumento', 'dataTodero', 'modelAreas', 'dataAreas'));
+        return view('Todero.information', compact('dataPais', 'dataTipoDocumento', 'dataTodero', 'modelAreas', 'dataAreas', 'dataDepartamento', 'dataCiudad'));
     }
 
     public function createInformacionAdicional(Request $request)
@@ -264,23 +267,7 @@ class ToderoController extends Controller
 
     public function ingresos()
     {
-        $modelTodero = relation_orden_user::query()
-                                            ->join('orden_servicio', 'relation_orden_user.id_orden', '=', 'orden_servicio.id')
-                                            ->where('relation_orden_user.id_user', '=', Auth::user()->id)
-                                            ->where('orden_servicio.status', '=',4)
-                                            ->get();
-
-        $ingresos =  0;
-
-        foreach ($modelTodero as $value)
-        {
-            $ingresos = $ingresos + $value->total;
-        }
-
-        $descuentos = $ingresos*0.098;0.00;
-
-        $ingresos = $ingresos-$descuentos;
-
+        $ingresos =  totalIngresos(Auth::user()->id);
         return view('Todero.ingresos', compact('ingresos'));
     }
 
@@ -381,6 +368,28 @@ class ToderoController extends Controller
         }
 
         return redirect()->route('homeTodero');
+    }
+
+    public function editPerfil()
+    {
+        $dataDepartamento = Departamento::all();
+        $dataCiudad = Ciudad::all();
+        $dataPais = Pais::all();
+        $dataTipoDocumento = tipoDocumento::all();
+        $modelAreas = area::query()->select('id', 'name')->get();
+
+        $dataTodero = informacionAdicional::query()
+            ->select(DB::raw('informacion_adicional.*, informacion_adicional.id, departamento.id_pais, ciudad.id_departamento'))
+            ->join('ciudad', 'informacion_adicional.id_ciudad', '=', 'ciudad.id')
+            ->join('departamento', 'ciudad.id_departamento', '=', 'departamento.id')
+            ->join('pais', 'departamento.id_pais', '=', 'pais.id')
+            ->where('id_user', '=', Auth::user()->id)
+            ->first();
+
+        $dataAreas = relation_user_area::query()->select('id_area')->where('id_user', Auth::user()->id)->get();
+
+        return view('Todero.edit', compact('dataPais', 'dataTipoDocumento', 'dataTodero', 'modelAreas', 'dataAreas','dataDepartamento','dataCiudad'));
+
     }
 
 }

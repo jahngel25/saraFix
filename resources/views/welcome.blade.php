@@ -18,15 +18,34 @@
     <link rel="stylesheet" href="{{asset('css/welcome.css')}}">
     <link rel="stylesheet" href="{{asset('css/footer.css')}}">
     <link rel="stylesheet" href="{{asset('css/animate.css')}}">
+    <style>
+        a{
+            font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+        p
+        {
+            font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+        h1,h2,h3,h4,h5
+        {
+            font-family: "Montserrat", "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+    </style>
 </head>
 <nav class="flex-center position-ref full-height col-md-12">
     @if (Route::has('login'))
         <div class="top-right links">
             @if (Auth::check())
-                <a href="{{ url('/home') }}">Home</a>
+                @if(roleUser() == 1)
+                    <a href="{{ route('homeTodero') }}">Home</a>
+                @elseif(roleUser() == 2)
+                    <a href="{{ route('homeCliente') }}">Home</a>
+                @elseif(roleUser() == 3)
+                    <a href="{{ route('homeAdmin') }}">Home</a>
+                @endif
             @else
                 <a href="{{ url('/login') }}" class="textClick">Iniciar Sesion</a>
-                <a href="{{ url('/register') }}" class="textClick">Registrame</a>
+                <a href="{{ url('/register') }}" class="textClick">Registrate</a>
                 <a href="{{ route('registerProvider') }}" class="textClick">Trabaja con nosotros</a>
                 <a href="{{route('contactenos')}}" class="textClick">Contactenos</a>
             @endif
@@ -40,7 +59,7 @@
 
         <section class="links wow fadeInDown">
             <a href="#">Reparaciones para el hogar</a><br>
-            <a href="#">Desde arreglar tu bicicleta, hasta remodelaciónes en general…</a>
+            <a href="#">Desde instalación de un tomacorriente, hasta remodelaciónes en general…</a>
         </section>
     </div>
     <div id="socialMobil" class="text-center center-block">  <br />
@@ -69,8 +88,8 @@
         </div>
         <div  class="row" id="contenedorAreas" style="margin-right: -15px !important;margin-left: -15px !important;">
             <center>
-                <h2 class="section-heading">No hay trabajo pequeño que no hagamos</h2>
-                <h3 id="servicios" class="section-subheading text-muted">"Precios económicos y sin sorpresas”</h3>
+                <h2 class="section-heading" style="background: #000;color: #fff;">No hay trabajo pequeño que no hagamos</h2>
+                <h3 id="servicios" class="section-subheading text-muted" style="margin-top: -3%">"Precios económicos y sin sorpresas”</h3>
                 <h5 id="servicios" class="section-subheading text-muted">Click en cada imagen para ver mas</h5>
             </center>
 
@@ -209,7 +228,7 @@
 
                     $('#contenedorAreas').append('<div class="col-md-4 col-sm-6 portfolio-item wow pulse" style="margin-top: 2%">\n' +
                         '<div class="containerImg">\n' +
-                        '<img src="img/'+ value['img'] +'" class="img-thumbnail" alt="Servicios de plomeria" class="image">\n' +
+                        '<img src="uploads/'+ value['img'] +'" class="img-thumbnail" alt="Servicios de plomeria" class="image">\n' +
                         '<div class="overlay">\n' +
                         '<div class="text">\n' +
                         '<h4>'+ value['name'] +'</h4>\n' +

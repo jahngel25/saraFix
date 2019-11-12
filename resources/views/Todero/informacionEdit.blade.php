@@ -108,6 +108,9 @@
                 <div class="col-md-12">
                     <select name="departamento" id="departamento" class="stylesInput" onchange="traerCiudad(this.value)">
                         <option value="">Seleccione</option>
+                        @foreach($dataDepartamento as $value)
+                            <option value="{{$value->id}}">{{$value->description}}</option>
+                        @endforeach
                     </select>
                     @if ($errors->has('departamento'))
                         <span class="help-block">
@@ -122,6 +125,9 @@
                 <div class="col-md-12">
                     <select name="id_ciudad" id="id_ciudad" class="stylesInput">
                         <option value="">Seleccione</option>
+                        @foreach($dataCiudad as $value)
+                            <option value="{{$value->id}}">{{$value->description}}</option>
+                        @endforeach
                     </select>
                     @if ($errors->has('id_ciudad'))
                         <span class="help-block">

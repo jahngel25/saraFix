@@ -1,6 +1,9 @@
 <form action="{{route('informacionAdicional')}}" method="post" enctype="multipart/form-data">
     {{ csrf_field() }}
     <div class="row" style="padding: 3%">
+        <div class="alert alert-warning" role="alert">
+            Por favor termine su registro para poder trabajar con nosotros.
+        </div>
         <div class="col-md-6">
             <div class="form-group{{ $errors->has('img_foto') ? ' has-error' : '' }}">
                 <label for="tipo_identificacion" class="col-md-12 control-label">Carga tu foto</label>

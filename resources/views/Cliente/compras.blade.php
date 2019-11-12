@@ -201,7 +201,7 @@
                             $('#infoUser').append('<div class="col-md-6"><div class="form-group">\n' +
                                 '        <h4 for="id_tipo_documento" class="col-md-12 control-label">'+index+'</h4>\n' +
                                 '        <div class="col-md-12">\n' +
-                                '            <label for="">'+value+'</label>\n' +
+                                '            <p for="">'+value+'</p>\n' +
                                 '        </div>\n' +
                                 '    </div></div>');
                         }

@@ -125,12 +125,21 @@
                                 '        </div>\n' +
                                 '    </div></div>');
 
+                        }else if (index == 'ingresos') {
+
+                            $('#contentUser').append('<div class="col-md-12" align="center"><div class="form-group">\n' +
+                                '        <b><h3 for="'+index+'" class="col-md-12 control-label" style="text-transform: uppercase;">'+index+'</h3></b>\n' +
+                                '        <div class="col-md-12">\n' +
+                                '            <h4 for="">$'+value+'</h4>\n' +
+                                '        </div>\n' +
+                                '    </div></div>');
+
                         }
                         else{
                             $('#contentUser').append('<div class="col-md-6"><div class="form-group">\n' +
-                                '        <h4 for="id_tipo_documento" class="col-md-12 control-label">'+index+'</h4>\n' +
+                                '        <h4 for="'+index+'" class="col-md-12 control-label">'+index+'</h4>\n' +
                                 '        <div class="col-md-12">\n' +
-                                '            <label for="">'+value+'</label>\n' +
+                                '            <p for="">'+value+'</p>\n' +
                                 '        </div>\n' +
                                 '    </div></div>');
                         }

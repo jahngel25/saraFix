@@ -27,7 +27,7 @@ Route::get('/servicios/{id}', 'PublicController@traerServicios')->name('servicio
 Route::get('/contactenos', 'PublicController@indexContactenos')->name('contactenos');
 Route::post('/crearContactenos', 'PublicController@createContactenos')->name('crearContactenos');
 Route::post('/crearCotizacion', 'PublicController@createCotizacion')->name('crearCotizacion');
-Route::get('/ordenServicio/{id}/{guid}/{id_area}', 'ControllerOrdenServicio@contratar')->name('informacionAdicional');
+Route::get('/ordenServicio/{id}/{guid}/{id_area}', 'ControllerOrdenServicio@contratar')->name('ordenServicio');
 Route::post('crearOrdenServicio','ControllerOrdenServicio@crear')->name('crearOrdenServicio');
 Route::get('deleteOrdenServicio/{key}/{id}/{guid}/{id_area}','ControllerOrdenServicio@delete')->name('deleteOrdenServicio');
 
@@ -58,6 +58,8 @@ Route::group(['middleware' => 'Administrador','prefix' => 'Administrador'], func
     Route::post('/emailCotizacion','AdministradorController@emailCotizacion')->name('emailCotizacion');
     Route::get('/cotizaciones','AdministradorController@indexCotizaciones')->name('cotizacionesAdmin');
     Route::get('/download/{name}', 'AdministradorController@getDownload')->name('download');
+    Route::get('/retiros', 'ControllerRetiro@infoRetiros')->name('solicitudRetiros');
+    Route::get('/updateRetiros/{id}', 'ControllerRetiro@updateRetiro')->name('updateEstadoRetiro');
 
 });
 
@@ -88,6 +90,8 @@ Route::group(['middleware' => 'Todero','prefix' => 'Todero'], function () {
     Route::post('calificar', 'ToderoController@calificar')->name('calificarCliente');
     Route::get('ingresos', 'ToderoController@ingresos')->name('ingresos');
     Route::get('/download/{name}', 'AdministradorController@getDownload')->name('download');
+    Route::post('/retiros', 'ControllerRetiro@retiros')->name('retiros');
+    Route::get('/editarPerfil','ToderoController@editPerfil')->name('editPerfil');
 
 });
 

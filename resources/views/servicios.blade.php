@@ -66,7 +66,7 @@
                 @if (Auth::guest())
                     <li><a href="{{ url('/') }}">Inicio</a></li>
                     <li><a href="{{ route('login') }}">Iniciar Sesion</a></li>
-                    <li><a href="{{ url('/register') }}">Registrame</a></li>
+                    <li><a href="{{ url('/register') }}">Registrate</a></li>
                     <li><a href="{{ route('registerProvider') }}">Trabaja con nosotros</a></li>
                 @else
                     @if(roleUser() == 1)
@@ -101,9 +101,9 @@
 </nav>
 <body>
     <div class="container">
-        <header style="background-image:url('/img/{{$dataArea->img_inter}}');" class="jumbotron hero-spacer">
-            <h2>{{$dataArea->name}}</h2>
-            <h3 style="text-transform:none;">{{$dataArea->description}}</h3>
+        <header style="background-image:url('/uploads/{{$dataArea->img_inter}}');" class="jumbotron hero-spacer">
+            <h2 style="color: #ffffff">{{$dataArea->name}}</h2>
+            <h3 style="text-transform:none;color: #ffffff;">{{$dataArea->description}}</h3>
             <p> </p>
         </header>
         <hr>
@@ -117,11 +117,11 @@
                 <div class="col-md-3 hero-feature">
                     <div class="thumbnail">
                         <div>
-                            <img src="{{asset('img/'.$value->img)}}" class="img-responsive" id="imgBtn_43" />
+                            <img src="{{asset('uploads/'.$value->img)}}" class="img-responsive" id="imgBtn_43" />
                             <div class="caption">
                                 <h4>{{$value->name}}</h4>
-                                <h4 style="color:darkred;">${{$value->precio}} Pesos</h4>
-                                <a href="{{route('ordenServicio', [$value->id, uniqid(), $dataArea->id])}}"><button  class="btn btn-info">Contratar</button></a>
+                                <b><h4>${{$value->precio}} Pesos</h4></b>
+                                <a href="{{route('ordenServicio', [$value->id, uniqid(), $dataArea->id])}}"><button  class="btn btn-primary">Contratar</button></a>
                             </div>
                         </div>
                     </div>
@@ -133,7 +133,7 @@
         <div class="row">
             <div class="col-lg-12 text-center">
                 <h3>¿No encuentras el servicio que necesitas?</h3>
-                <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                <button type="button" class="btn btn-primary" style="background-color: #666666 !important;border-color: #fff !important;" data-toggle="modal" data-target="#exampleModal">
                     SOLICITAR PRESUPUESTO
                 </button>
             </div>

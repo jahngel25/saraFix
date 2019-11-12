@@ -67,7 +67,7 @@
                         @if (Auth::guest())
                             <li><a href="{{ url('/') }}">Inicio</a></li>
                             <li><a href="{{ route('login') }}">Iniciar Sesion</a></li>
-                            <li><a href="{{ url('/register') }}" class="textClick">Registrame</a></li>
+                            <li><a href="{{ url('/register') }}" class="textClick">Registrate</a></li>
                             <li><a href="{{ route('registerProvider') }}">Trabaja con nosotros</a></li>
                         @else
                             @if(roleUser() == 1)
@@ -82,6 +82,9 @@
                                     {{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
                                 <ul class="dropdown-menu" role="menu">
+                                    @if(roleUser() == 1)
+                                        <li><a href="{{route('editPerfil')}}">Editar Perfil</a></li>
+                                    @endif
                                     <li>
                                         <a href="{{ route('logout') }}"
                                             onclick="event.preventDefault();

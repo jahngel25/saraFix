@@ -63,6 +63,12 @@
                         $("#{{$value->id_area}}").attr("checked", true);
                 @endforeach
             @endif
+            @if($dataTodero != '')
+                $("#id_tipo_documento option[value="+ {{$dataTodero->id_tipo_documento}} +"]").attr("selected",true);
+                $("#pais option[value="+ {{$dataTodero->id_pais}} +"]").attr("selected",true);
+                $("#departamento option[value="+ {{$dataTodero->id_departamento}} +"]").attr("selected",true);
+                $("#id_ciudad option[value="+ {{$dataTodero->id_ciudad}} +"]").attr("selected",true);
+            @endif
         });
 
         $('#datetimepickerInfo').datetimepicker({

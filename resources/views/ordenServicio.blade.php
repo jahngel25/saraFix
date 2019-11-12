@@ -72,7 +72,7 @@
                 @if (Auth::guest())
                     <li><a href="{{ url('/') }}">Inicio</a></li>
                     <li><a href="{{ route('login') }}">Iniciar Sesion</a></li>
-                    <li><a href="{{ url('/register') }}">Registrame</a></li>
+                    <li><a href="{{ url('/register') }}">Registrate</a></li>
                     <li><a href="{{ route('registerProvider') }}">Trabaja con nosotros</a></li>
                 @else
                     @if(roleUser() == 1)
@@ -144,7 +144,11 @@
                         <div class="form-group {{ $errors->has('email') ? ' has-error' : '' }}">
                             <label for="status" class="col-md-3 control-label">Email:</label>
                             <div class="col-md-9">
-                                <input type="email" style="border-color: #c0c0c0" value="{{ old('email') }}" placeholder="Email de contacto:" class="form-control" name="email" id="email"/>
+                                @if (Auth::guest())
+                                    <input type="email" style="border-color: #c0c0c0" value="{{ old('email') }}" placeholder="Email de contacto:" class="form-control" name="email" id="email"/>
+                                @else
+                                    <input type="email" style="border-color: #c0c0c0" value="{{ Auth::user()->email }}" placeholder="Email de contacto:" class="form-control" name="email" id="email"/>
+                                @endif
                                 @if ($errors->has('email'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('email') }}</strong>
@@ -155,7 +159,11 @@
                         <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
                             <label for="concept" class="col-md-3 control-label">Nombre: </label>
                             <div class="col-md-9">
-                                <input type="text" style="border-color: #c0c0c0" value="{{ old('name') }}" placeholder="Nombre quien recibe:"  class="form-control" name="name" id="name"/>
+                                @if (Auth::guest())
+                                    <input type="text" style="border-color: #c0c0c0" value="{{ old('name') }}" placeholder="Nombre quien recibe:"  class="form-control" name="name" id="name"/>
+                                @else
+                                    <input type="text" style="border-color: #c0c0c0" value="{{ Auth::user()->name }}" placeholder="Nombre quien recibe:"  class="form-control" name="name" id="name"/>
+                                @endif
                                 @if ($errors->has('name'))
                                     <span class="help-block">
                                         <strong>{{ $errors->first('name') }}</strong>
@@ -236,7 +244,7 @@
                         @foreach($modelServicio as $key => $value)
                             <div class="row" style="padding: 3%" id="contenedor_{{$value['id']}}">
                                 <div class="col-md-3">
-                                    <input type="image" name="img_0" id="img_0" class="img-responsive" src="{{asset('img/'.$value['img'])}}">
+                                    <input type="image" name="img_0" id="img_0" class="img-responsive" src="{{asset('uploads/'.$value['img'])}}">
                                 </div>
                                 <div class="col-md-3">
                                     <h4 class="product-name"><strong><span id="lblText_0">{{$value['name']}}</span></strong></h4>
