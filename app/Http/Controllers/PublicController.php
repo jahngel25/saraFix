@@ -86,4 +86,20 @@ class PublicController extends Controller
 
         return Response::download($file, $name, $headers);
     }
+
+    public function getAreaApi()
+    {
+        $tasks = area::select(['id','name','description','img']);
+
+        if (!$tasks)
+        {
+            // Se devuelve un array errors con los errores encontrados y cabecera HTTP 404.
+            // En code podríamos indicar un código de error personalizado de nuestra aplicación si lo deseamos.
+            return response()->json(['errors'=>array(['code'=>404,'message'=>'No se encuentra un fabricante con ese código.'])],404);
+        }
+
+        return response()->json(['status'=>'ok','data'=>$tasks],200);
+
+
+    }
 }

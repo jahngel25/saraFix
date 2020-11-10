@@ -58,9 +58,10 @@ Route::group(['middleware' => 'Administrador','prefix' => 'Administrador'], func
     Route::post('/emailContactenos','AdministradorController@emailContactenos')->name('emailContactenos');
     Route::post('/emailCotizacion','AdministradorController@emailCotizacion')->name('emailCotizacion');
     Route::get('/cotizaciones','AdministradorController@indexCotizaciones')->name('cotizacionesAdmin');
-    Route::get('/download/{name}', 'AdministradorController@getDownload')->name('download');
+    Route::get('/downloadAdmin/{name}', 'AdministradorController@getDownload')->name('downloadAdmin');
     Route::get('/retiros', 'ControllerRetiro@infoRetiros')->name('solicitudRetiros');
     Route::get('/updateRetiros/{id}', 'ControllerRetiro@updateRetiro')->name('updateEstadoRetiro');
+    Route::get('/infoServiciosAdmin', 'AdministradorController@infoServicio')->name('infoServiciosAdmin');
 
 });
 

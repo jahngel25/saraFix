@@ -116,7 +116,7 @@
 
                         }
                         else if (index == 'Documento Identidad' || index == 'Certificados' || index == 'Acta  Bachiller' || index == 'Certificado EPS') {
-                            var stringRoute = '{{route('download', ['parameter'])}}';
+                            var stringRoute = '{{route('downloadAdmin', ['parameter'])}}';
                             var resultRoute = stringRoute.replace("parameter", value);
                             $('#contentUser').append('<div class="col-md-6"><div class="form-group">\n' +
                                 '        <h4 for="id_tipo_documento" class="col-md-12 control-label">'+index+'</h4>\n' +

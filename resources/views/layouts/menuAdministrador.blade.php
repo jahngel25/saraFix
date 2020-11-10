@@ -5,3 +5,4 @@
 <li><a href="{{ route('contactenosAdmin') }}">Contactenos</a></li>
 <li><a href="{{ route('cotizacionesAdmin') }}">Cotizaciones</a></li>
 <li><a href="{{ route('solicitudRetiros') }}">Retiros</a></li>
+<li><a href="{{ route('infoServiciosAdmin') }}">Ordenes de Servicio</a></li>

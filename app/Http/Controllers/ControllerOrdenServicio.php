@@ -111,17 +111,9 @@ class ControllerOrdenServicio extends Controller
 
             $modelCodigo = codigoPromocional::query()->where('codigo', $request['id_codigo'])->get()->toArray();
 
-            if (isset($modelCodigo))
-            {
-                $total = $request['total'] - 5000;
-            }
-            else{
-                $total = $request['total'];
-            }
-
             $insertOrden = servicioOrden::create([
                 'description' => $request['description'],
-                'total' => $total,
+                'total' => $request['total'],
                 'id_codigo' => 1,
                 'id_user' => $idUser,
                 'address' => $request['address'],
@@ -129,13 +121,26 @@ class ControllerOrdenServicio extends Controller
                 'date' => $request['date'],
             ]);
 
+            $total = 0;
+
             foreach ($request['servicios'] as $value)
             {
+                $servicio = servicios::query()->where('id', $value)->first();
+                $total = $total + $servicio->precio;
                 $insertRelations = relation_servicio_orden::create([
                    'id_orden' =>  $insertOrden->id,
                     'id_servicio' => $value
                 ]);
             }
+
+            if (isset($modelCodigo))
+            {
+                $total = $total - 5000;
+            }
+
+            $updateTotal = servicioOrden::find($insertOrden->id);
+            $updateTotal->total = $total;
+            $updateTotal->save();
 
             Alert::success('Se ha registrado su orden de servicio, si posee usuario en la aplicación el servicio queda asociado a su correo electronico de lo contrario en aplicativo le asignara uno apartir del correo ingresado y su contraseña sera el numero de telefono. Por favor ingresar para terminar el proceso de contratación.', 'Hecho')->persistent('Cerrar');
 

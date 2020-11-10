@@ -7,6 +7,7 @@ use App\cotizacion;
 use App\informacionAdicional;
 use App\Mail\ContactenosEmail;
 use App\Mail\CotizacionEmail;
+use App\relation_orden_user;
 use App\relationTypeUsers;
 use App\User;
 use Illuminate\Http\Request;
@@ -134,5 +135,26 @@ class AdministradorController extends Controller
         );
 
         return Response::download($file, $name, $headers);
+    }
+
+    public function infoServicio()
+    {
+        $modelServicio = relation_orden_user::query()
+                                                ->select(DB::raw('orden_servicio.id, usp.name AS userProfesional, usc.name AS userCliente, orden_servicio.date, cap.puntaje AS puntajeProfesional, cac.puntaje AS puntajeCliente'))
+                                                ->join('orden_servicio', 'relation_orden_user.id_orden', '=', 'orden_servicio.id')
+                                                ->join('users AS usp', 'relation_orden_user.id_user', '=', 'usp.id')
+                                                ->join('users AS usc', 'orden_servicio.id_user', '=', 'usc.id')
+                                                ->leftJoin('calificacion AS cap', function ($join) {
+                                                    $join->on('orden_servicio.id', '=', 'cap.id_orden');
+                                                    $join->on('cap.type', '=', DB::raw(2));
+                                                })
+                                                ->leftJoin('calificacion AS cac', function ($join) {
+                                                    $join->on('orden_servicio.id', '=', 'cac.id_orden');
+                                                    $join->on('cac.type', '=', DB::raw(1));
+                                                })
+                                                ->get();
+
+
+        return view('Administrador.infoServicios', compact('modelServicio'));
     }
 }
